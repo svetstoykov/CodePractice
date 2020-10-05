@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using HackerRank._30DaysOfCode;
-using HackerRank.InterviewPreparationKit.Recursion.Softuni;
+﻿using HackerRank.InterviewPreparationKit.Recursion.Softuni;
 
 namespace HackerRank
 {
