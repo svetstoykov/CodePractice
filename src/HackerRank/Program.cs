@@ -1,4 +1,5 @@
-﻿using HackerRank.ProblemSolving;
+﻿using System;
+using HackerRank.ProblemSolving;
 
 namespace HackerRank
 {
@@ -6,13 +7,7 @@ namespace HackerRank
     {
         static void Main(string[] args)
         {
-
-            var arr = new int[][]
-            {
-                new int[] {1,4 },
-            };
-
-            QueensAttack.GetResult(5, 1, 3, 2, arr);
+            Console.WriteLine(SaveThePrisoner.GetResult(999999999,999999999,1));
         }
 
     }

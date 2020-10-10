@@ -21,8 +21,6 @@ namespace HackerRank
                 {6,1,8,7,5,3,2,9,4},
             };
 
-            var testMatrix = new int[3, 3];
-
             for (int i = 0; i < 8; i++)
             {
                 cost[i] = Math.Abs(t[i,0] - s[0][0])
