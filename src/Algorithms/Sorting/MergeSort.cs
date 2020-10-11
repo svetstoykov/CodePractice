@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace Algorithms.MergeSort
+﻿namespace Algorithms.Sorting
 {
     public static class MergeSort
     {
@@ -32,15 +30,15 @@ namespace Algorithms.MergeSort
             leftArr = Sort(leftArr);
             rightArr = Sort(rightArr);
 
-            var result = Merge(leftArr, rightArr);
+            int[] result = Merge(leftArr, rightArr);
 
             return result;
         }
         public static int[] Merge(int[] leftArr, int[] rightArr)
         {
             int[] result = new int[leftArr.Length + rightArr.Length];
-            int resultIndex, leftIndex, rightIndex;
-            rightIndex = leftIndex = resultIndex = 0;
+            int resultIndex, leftIndex;
+            int rightIndex = leftIndex = resultIndex = 0;
 
             while (leftIndex < leftArr.Length || rightIndex < rightArr.Length)
             {

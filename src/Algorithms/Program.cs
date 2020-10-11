@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Algorithms.Combinatorial;
 
 namespace Algorithms
 {
@@ -6,23 +6,10 @@ namespace Algorithms
     {
         static void Main(string[] args)
         {
-            var arr = new int[2000];
-            var random = new Random();
+            var arr = new int[] { 1, 2, 3 };
+            var permutation = new Permutation(arr);
 
-            for (int i = 0; i < 2000; i++)
-            {
-                var num = random.Next(0, 1200);
-                arr[i] = num;
-            }
-            Console.WriteLine(string.Join(", ", arr));
-            Console.WriteLine("THIS WAS THE BROKEN ARRAY");
-            Console.WriteLine();
-
-
-            arr = MergeSort.MergeSort.Sort(arr);
-
-            Console.WriteLine(string.Join(", ", arr));
-
+            permutation.PermuteWithSwap(0);
         }
     }
 }

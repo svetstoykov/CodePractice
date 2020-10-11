@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Algorithms.QuickSort
+﻿namespace Algorithms.Sorting
 {
     public static class QuickSort
     {

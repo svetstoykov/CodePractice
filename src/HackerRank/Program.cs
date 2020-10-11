@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using HackerRank.ProblemSolving;
 
 namespace HackerRank
@@ -7,7 +10,8 @@ namespace HackerRank
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(SaveThePrisoner.GetResult(999999999,999999999,1));
+            var stopwatch = new Stopwatch();
+            var something = String.Compare("abcd ", "a", StringComparison.InvariantCulture);
         }
 
     }
