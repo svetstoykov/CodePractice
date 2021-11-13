@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using HackerRank.ProblemSolving;
 
 namespace HackerRank
@@ -7,9 +8,8 @@ namespace HackerRank
     {
         static void Main(string[] args)
         {
-            var input = new int[] { -1,-3,4,2};
 
-            Console.WriteLine(SherlockAndSquares.GetResult(17, 24));
+            Console.WriteLine(TheTimeInWords.GetResult(5, 45));
 
         }
 

@@ -12,12 +12,9 @@ namespace HackerRank.ProblemSolving
             for (int i = c[0]; i < c[c.Length - 2]; i++)
             {
                 var difference = (i + 1) - i;
-
-                if (difference > biggestDifference)
-                {
-                    ci
-                }
             }
+
+            return default;
         }
     }
 }
