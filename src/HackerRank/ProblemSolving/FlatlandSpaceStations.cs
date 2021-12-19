@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace HackerRank.ProblemSolving
+﻿namespace HackerRank.ProblemSolving
 {
     public class FlatlandSpaceStations
     {

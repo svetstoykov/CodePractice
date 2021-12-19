@@ -1,27 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace HackerRank.InterviewPreparationKit.DictionariesAndHashmaps
 {
     public static class RansomNote
     {
-        public static void GetResult(string[] magazine, string[] note)
+        public static void GetResult(List<string> magazine, List<string> note)
         {
-            Array.Sort(magazine);
-            Array.Sort(note);
+            var magazineDict = new Dictionary<string, int>();
+            foreach (var word in magazine)
+            {
+                if (!magazineDict.ContainsKey(word))
+                {
+                    magazineDict.Add(word, 1);
+                    continue;
+                }
 
-            var magsList = magazine.ToList();
+                magazineDict[word] += 1;
+            }
 
             foreach (var word in note)
             {
-                if(!magsList.Remove(word))
+                if (magazineDict.TryGetValue(word, out var value) && value > 0)
                 {
-                    Console.WriteLine("No");
-                    return;
+                    magazineDict[word] -= 1;
+                    continue;
                 }
-            }
 
+                Console.WriteLine("No");
+                return;
+            }
 
             Console.WriteLine("Yes");
         }

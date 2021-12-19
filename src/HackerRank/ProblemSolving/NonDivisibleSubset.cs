@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Enumerable = System.Linq.Enumerable;
 
 namespace HackerRank.ProblemSolving
 {
