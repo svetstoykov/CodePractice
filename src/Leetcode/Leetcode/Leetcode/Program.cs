@@ -2,4 +2,4 @@
 using Leetcode.Problems;
 
 
-Console.WriteLine(LongestSubstringWithoutRepeatingCharacters.Solve("abcabcbb"));
+Console.WriteLine(ThreeSum.Solve(new int[] { -1, 0, 1, 2, -1, -4 }));
