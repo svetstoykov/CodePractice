@@ -1,4 +1,7 @@
-﻿using Algorithms.Combinatorial;
+﻿using System;
+using System.Collections.Generic;
+using Algorithms.BinarySearch;
+using Algorithms.Combinatorial;
 
 namespace Algorithms
 {
@@ -6,10 +9,16 @@ namespace Algorithms
     {
         static void Main(string[] args)
         {
-            var arr = new int[] { 1, 2, 3 };
-            var permutation = new Permutation(arr);
+            var list = new List<int>();
+            for (int i = 0; i < 1200000; i++)
+            {
+                list.Add(i);
+            }
 
-            permutation.PermuteWithSwap(0);
+            var arr = list.ToArray();
+            var permutation = BinarySearchRecursive.Search(arr, 1200000, 0, arr.Length - 1);
+
+            Console.WriteLine(permutation);
         }
     }
 }

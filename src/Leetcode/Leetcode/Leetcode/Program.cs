@@ -1,5 +1,5 @@
 ﻿
+
 using Leetcode.Problems;
 
-
-Console.WriteLine(ThreeSum.Solve(new int[] { -1, 0, 1, 2, -1, -4 }));
+Console.WriteLine(TelescopicArray.IsTelescopic(new int[] { 1,2,3,4,5,4,3,2,1 }));

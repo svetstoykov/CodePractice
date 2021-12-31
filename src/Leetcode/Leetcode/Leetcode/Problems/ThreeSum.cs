@@ -22,6 +22,10 @@ namespace Leetcode.Problems
                     continue;
                 }
 
+                var subStr = "s";
+
+                subStr.Substring(1, 5);
+
                 var l = i + 1;
                 var r = sortedNums.Count() - 1;
 
