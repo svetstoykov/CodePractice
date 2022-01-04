@@ -2,4 +2,4 @@
 
 using Leetcode.Problems;
 
-Console.WriteLine(TelescopicArray.IsTelescopic(new int[] { 1,2,3,4,5,4,3,2,1 }));
+Console.WriteLine(LongestIncreasingSubsequence.Solve(new int[] { 10, 9, 2, 5, 3, 7, 101, 18 }));
