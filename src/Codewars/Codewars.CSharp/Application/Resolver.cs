@@ -1,6 +1,6 @@
 ﻿namespace Application;
 
-public static class Solver
+public static class Resolver
 {
     public static void DoWork()
     {
