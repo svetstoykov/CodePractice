@@ -1,3 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using Application;
+using Application.Problems;
 
-Console.WriteLine("Hello, World!");
+Console.WriteLine(IsPrime.Solve(0));
