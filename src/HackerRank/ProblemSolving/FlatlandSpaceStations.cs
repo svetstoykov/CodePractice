@@ -1,15 +1,19 @@
-﻿namespace HackerRank.ProblemSolving
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace HackerRank.ProblemSolving
 {
     public class FlatlandSpaceStations
     {
         public static int GetResult(int n, int[] c)
         {
-            var biggestDifference = 0;
-            var furthestCities = new int[2];
+            var answer = 0;
+            var sortedStations = c.OrderBy(a => a);
 
-            for (int i = c[0]; i < c[c.Length - 2]; i++)
+            for (int i = 1; i < c.Length; i++)
             {
-                var difference = (i + 1) - i;
+                answer = Math.Max(answer, (c[i] - c[i - 1]) / 2);
             }
 
             return default;

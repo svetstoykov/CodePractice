@@ -3,28 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using HackerRank.InterviewPreparationKit.DictionariesAndHashmaps;
+using HackerRank.LeetCode;
+using HackerRank.ProblemSolving;
 
 namespace HackerRank
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            int q = Convert.ToInt32(Console.ReadLine().Trim());
-
-            List<List<int>> queries = new List<List<int>>();
-
-            for (int i = 0; i < q; i++)
-            {
-                queries.Add(Console.ReadLine().TrimEnd().Split(' ').ToList().Select(queriesTemp => Convert.ToInt32(queriesTemp)).ToList());
-            }
-
-            List<int> ans = FrequencyQueries.GetResult(queries);
-
-            Console.WriteLine(String.Join("\n", ans));
+            var respo = GroupAnagrams.Solve(new[] {"eat", "tea", "tan", "ate", "nat", "bat"});
+            
+            Console.WriteLine(string.Join(" / ", respo.Select(e => string.Join(", ", e))));
         }
-
     }
 }
-
-
