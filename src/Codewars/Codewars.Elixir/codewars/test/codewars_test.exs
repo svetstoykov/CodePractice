@@ -61,4 +61,98 @@ defmodule CodewarsTest do
     assert DuplicateCount.count("Indivisibility") == 1
     assert DuplicateCount.count("Indivisibilities") == 2
   end
+
+  test "Are they the Same" do
+    IO.puts("Test 1")
+    a = [121, 144, 19, 161, 19, 144, 19, 11]
+    b = [11 * 11, 121 * 121, 144 * 144, 19 * 19, 161 * 161, 19 * 19, 144 * 144, 19 * 19]
+    assert Aretheythesame.comp(a, b) == true
+    IO.puts("Test 2")
+
+    assert Aretheythesame.comp(
+             [121, 144, 19, 161, 19, 144, 19, 11],
+             [11 * 21, 121 * 121, 144 * 144, 19 * 19, 161 * 161, 19 * 19, 144 * 144, 19 * 19]
+           ) == false
+
+    IO.puts("Test 3")
+
+    assert Aretheythesame.comp(
+             [121, 144, 19, 161, 19, 144, 19, 11],
+             [11 * 11, 121 * 121, 144 * 144, 190 * 190, 161 * 161, 19 * 19, 144 * 144, 19 * 19]
+           ) == false
+
+    IO.puts("Test 4")
+    assert Aretheythesame.comp([], []) == true
+    IO.puts("Test 5")
+
+    assert Aretheythesame.comp([], [
+             11 * 11,
+             121 * 121,
+             144 * 144,
+             190 * 190,
+             161 * 161,
+             19 * 19,
+             144 * 144,
+             19 * 19
+           ]) == false
+
+    IO.puts("Test 6")
+
+    assert Aretheythesame.comp(
+             [121, 144, 19, 161, 19, 144, 19, 11, 1008],
+             [11 * 11, 121 * 121, 144 * 144, 190 * 190, 161 * 161, 19 * 19, 144 * 144, 19 * 19]
+           ) == false
+
+    IO.puts("Test 7")
+
+    assert Aretheythesame.comp(
+             [2, 2, 3],
+             [4, 9, 9]
+           ) == false
+
+    IO.puts("Test 8")
+
+    assert Aretheythesame.comp(
+             [4, 4],
+             [1, 31]
+           ) == false
+
+    IO.puts("Test 9")
+
+    assert Aretheythesame.comp(
+             [3, 4],
+             [0, 25]
+           ) == false
+  end
+
+  def randomtests(n) when n <= 0 do
+    IO.puts("Finished!")
+  end
+
+  def randomtests(n) do
+    IO.puts("Test #{n}")
+    a = for _ <- 1..20, do: :random.uniform(100)
+    b = Enum.map(a, fn x -> x * x end)
+    r = rem(:random.uniform(1000), 7)
+
+    if r < 3 do
+      [h | t] = b
+      t = t ++ [:random.uniform(1000)]
+
+      IO.puts(Enum.join(a, ", "))
+      IO.puts("----")
+      IO.puts(Enum.join(t, ", "))
+
+      assert Aretheythesame.comp(a, t) == false
+    else
+      assert Aretheythesame.comp(a, b) == true
+    end
+
+    randomtests(n - 1)
+  end
+
+  test "random" do
+    IO.puts("\n")
+    randomtests(50)
+  end
 end
