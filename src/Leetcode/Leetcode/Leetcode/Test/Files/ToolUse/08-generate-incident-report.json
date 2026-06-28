@@ -1,0 +1,187 @@
+{
+  "kind": "cross-team-incident-report",
+  "incident_id": "INC-2026-05-14-Δ77",
+  "title": "Tokenizer drift + scrape mismatch across multilingual release surfaces",
+  "inputs": {
+    "documents": [
+      {
+        "name": "metrics",
+        "uri": "s3://ops-eu-west-1/raw/metrics/2026-05/14/*.jsonl",
+        "format": "jsonl"
+      },
+      {
+        "name": "operator-chat",
+        "uri": "https://chat.example.internal/export/rooms/runtime-war-room?date=2026-05-14",
+        "format": "json"
+      },
+      {
+        "name": "scrape-bundle",
+        "uri": "file:///srv/exports/tool-use/2026-05-14/noisy-samples/",
+        "format": "directory"
+      },
+      {
+        "name": "ticket-comments",
+        "uri": "https://tracker.example.org/api/issues/48392/comments?expand=translations",
+        "format": "json"
+      },
+      {
+        "name": "field-notes",
+        "uri": "memory://reports/session/incident-Δ77/handwritten-notes",
+        "format": "text"
+      }
+    ],
+    "focus_dimensions": [
+      "service",
+      "region",
+      "locale",
+      "artifact",
+      "input_shape",
+      "retry_signature",
+      "path_style"
+    ],
+    "priority_clues": [
+      "release drift",
+      "backoff spikes",
+      "mixed newline corruption",
+      "e\\u0301 vs é",
+      "👨‍👩‍👧‍👦 token count jump"
+    ]
+  },
+  "instructions": {
+    "executive_summary": "Write a crisp summary for leadership in plain English, then append a one-line multilingual pulse check.\n\nPulse check examples:\n  - bg: \"Има отклонение, но имаме възпроизводим сценарий.\"\n  - ja: \"再現手順あり、影響範囲は限定的。\"\n  - ar: \"يوجد انحراف لكن لدينا طريقة إعادة واضحة.\"\n",
+    "operator_view": "Keep the operator section noisier and more verbatim. Preserve chat fragments, spacing, arrows, and pasted paths.\n\nAccept examples like:\n  \"03:11 WARN  path => C:\\\\ops\\\\archive\\\\μ-service\\\\crash?.dmp\"\n  \"note => /srv/cache/tool-use/harvest/2026-05-14/session-α/\"\n  \"paste => добро утро   |   bonjour   |   你好\"\n",
+    "style": [
+      "avoid dramatic language",
+      "prefer concrete evidence",
+      "quote 2-5 raw snippets",
+      "keep emoji only when it clarifies operator intent",
+      "highlight uncertainty explicitly"
+    ]
+  },
+  "sections": [
+    {
+      "name": "summary",
+      "max_words": 180,
+      "include": [
+        "scope",
+        "customer impact",
+        "current status",
+        "next checkpoint"
+      ]
+    },
+    {
+      "name": "timeline",
+      "include": [
+        "first signal",
+        "detection source",
+        "mitigation attempt",
+        "rollback decision",
+        "verification"
+      ],
+      "time_zone": "UTC"
+    },
+    {
+      "name": "evidence",
+      "include_tables": true,
+      "table_columns": [
+        "source",
+        "locale",
+        "artifact",
+        "symptom",
+        "snippet"
+      ],
+      "max_rows": 14
+    },
+    {
+      "name": "root-cause-hypotheses",
+      "min_items": 3,
+      "max_items": 5,
+      "rank_by": [
+        "evidence_strength",
+        "reproducibility",
+        "blast_radius"
+      ]
+    },
+    {
+      "name": "follow-ups",
+      "group_by": "team",
+      "teams": [
+        "runtime",
+        "search",
+        "etl",
+        "docs"
+      ]
+    }
+  ],
+  "appendices": {
+    "include_raw_samples": 6,
+    "sample_snippets": [
+      "2026-05-14T03:11:15Z INFO  pasted=\"добро утро | bonjour | 你好\"",
+      "2026-05-14T03:11:18Z WARN  path=\"C:\\\\ops\\\\archive\\\\μ-service\\\\crash?.dmp\"",
+      "2026-05-14T03:11:21Z INFO  note=\"e\\u0301 vs é still visible in raw capture\"",
+      "operator memo => \"الرجاء عدم تسوية المسافات   داخل   الأمثلة\"",
+      "forum quote => \"Markdown table | pipes | should | remain\"",
+      "emoji note => \"family 👨‍👩‍👧‍👦 split unexpectedly after retry #3\""
+    ],
+    "preserve_blocks": [
+      "markdown_tables",
+      "json_fragments",
+      "sql_fragments",
+      "windows_paths",
+      "rtl_quotes"
+    ]
+  },
+  "output": {
+    "formats": [
+      "md",
+      "json"
+    ],
+    "destinations": [
+      "file:///srv/reports/incidents/2026-05-14/INC-2026-05-14-Δ77.md",
+      "file:///srv/reports/incidents/2026-05-14/INC-2026-05-14-Δ77.json",
+      "https://wiki.example.internal/incidents/INC-2026-05-14-%CE%9477/import"
+    ],
+    "front_matter": {
+      "severity": "SEV-2",
+      "status": "monitoring",
+      "tags": [
+        "tokenizer",
+        "scraper",
+        "unicode",
+        "release",
+        "mixed-script"
+      ]
+    }
+  },
+  "constraints": {
+    "budget_tokens": 6200,
+    "preserve": [
+      "UTF-8",
+      "escaped_newlines",
+      "box_drawing",
+      "zero_width_joiners",
+      "direction_marks"
+    ],
+    "redact": [
+      "token",
+      "secret",
+      "session_cookie",
+      "private_email"
+    ],
+    "do_not_flatten": [
+      "quoted_paths",
+      "stack_trace_indentation",
+      "intentional_double_spaces"
+    ]
+  },
+  "delivery": {
+    "notify": [
+      "#incident-review",
+      "#runtime-ops",
+      "#unicode-lab"
+    ],
+    "subject_template": "[SEV-2][Δ77] {{status}} tokenizer drift / scrape mismatch 🧪",
+    "language_footer": "en | bg | ja | ar | es",
+    "trace": "rep_08_2026_05_14__ζ-report"
+  }
+}

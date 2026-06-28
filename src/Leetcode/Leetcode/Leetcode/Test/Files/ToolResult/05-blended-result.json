@@ -1,0 +1,124 @@
+{
+  "run_id": "blend_2026_05_14_7f",
+  "summary": {
+    "state": "partial-success",
+    "completed": 4,
+    "failed": 1,
+    "warnings": [
+      "one artifact hash was missing",
+      "stdout contained mixed newline styles",
+      "token estimate drift > 9% on shortest sample",
+      "separator collapse appeared near repeated :: segments"
+    ]
+  },
+  "artifacts": [
+    {
+      "name": "report.md",
+      "bytes": 18442,
+      "sha256": "0ec1aa7c8f4f",
+      "note": "contains Markdown tables, locale breakdowns, and highlighted weird samples"
+    },
+    {
+      "name": "report.json",
+      "bytes": 9631,
+      "sha256": "7aa912be0d8c",
+      "note": "machine-friendly sidecar with raw snippets and grouped warnings"
+    },
+    {
+      "name": "symbols.txt",
+      "bytes": 1712,
+      "sha256": "4bc0fef9d104",
+      "note": "dense symbol and confusable matrix"
+    },
+    {
+      "name": "terminal-scrape.log",
+      "bytes": 3128,
+      "sha256": "9ed2cc16b77a",
+      "note": "kept box drawing, weird spacing, and lines with ↯"
+    }
+  ],
+  "snippets": [
+    "row[17] => locale=bg-BG, text=„Пусни build-а.“",
+    "row[18] => locale=ja-JP, text=ログを三回チェックする",
+    "row[19] => locale=mix, text=route=/x/μ?flag=ß&ok=true",
+    "row[20] => locale=emoji, text=👨‍👩‍👧‍👦",
+    "row[21] => locale=confusable, text=A Α А | é | é"
+  ],
+  "metrics": {
+    "requests_total": 1204991,
+    "parser_retries": 7441,
+    "failed_exports": 19,
+    "unicode_edge_cases": 42,
+    "separator_collisions": 17,
+    "mixed_newline_samples": 31
+  },
+  "next_actions": [
+    {
+      "kind": "rerun",
+      "target": "search sample 03",
+      "priority": "high"
+    },
+    {
+      "kind": "diff",
+      "target": "tokenizer heuristics",
+      "priority": "medium"
+    },
+    {
+      "kind": "archive",
+      "target": "terminal scrape",
+      "priority": "low"
+    },
+    {
+      "kind": "extend-corpus",
+      "target": "demo files small->very_large",
+      "priority": "high"
+    }
+  ],
+  "notes": {
+    "locale_hints": ["en", "bg", "ja", "ar", "emoji-only", "mixed-script"],
+    "preserved": ["UTF-8", "zero-width joiners", "escaped-newlines", "box-drawing"],
+    "refused_normalization": ["emoji", "accented-latin", "rtl-samples"]
+  },
+  "analysis": {
+    "short_vs_long": {
+      "small_sample_bias": "short clean prompts underreport separator-heavy token costs",
+      "mixed_sample_gain": "longer realistic prompts expose path, table, and quote handling",
+      "recommendation": "keep a staircase corpus from tiny to noisy and very large"
+    },
+    "interesting_cases": [
+      {
+        "label": "confusable-triplet",
+        "text": "A Α А",
+        "reason": "Latin, Greek, and Cyrillic characters can look nearly identical in screenshots"
+      },
+      {
+        "label": "accent-pair",
+        "text": "é / é",
+        "reason": "composed and decomposed forms should survive intact"
+      },
+      {
+        "label": "path-soup",
+        "text": "C:\\ops\\archive\\μ-service\\crash?.dmp :: /srv/run/@odd/Δelta/replay.log",
+        "reason": "slashes, escapes, symbols, and punctuation collide"
+      },
+      {
+        "label": "emoji-cluster",
+        "text": "👨‍👩‍👧‍👦 ☕🧾🧪➡️✅",
+        "reason": "ZWJ sequences and symbol chains are useful tokenizer stressors"
+      }
+    ],
+    "source_mix": [
+      "chat fragments",
+      "terminal excerpts",
+      "Markdown tables",
+      "inline JSON",
+      "YAML mini-blocks",
+      "multilingual status notes"
+    ],
+    "long_form_examples": [
+      "Need a fast summary of these scraps before standup: café receipts, sticky notes, SQL, and emoji all in one place.",
+      "Morning dump, unfiltered: one container restarted, customer text from São Paulo, and a dashboard title that became NØRTH\\\\WEST.",
+      "Please parse this as if it came from a tired human at 02:07: paths, tables, regex, yaml, csv, and ¯\\\\_(ツ)_/¯ all included."
+    ]
+  }
+}

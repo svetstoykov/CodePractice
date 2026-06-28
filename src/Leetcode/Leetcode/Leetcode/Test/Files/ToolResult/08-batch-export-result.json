@@ -1,0 +1,215 @@
+{
+  "run_id": "batch_2026_05_16_01JVB0T0QMXR0N60P2M8CKRM2F",
+  "kind": "tool_result.export_bundle",
+  "state": "partial-success",
+  "started_at": "2026-05-16T08:04:11.118Z",
+  "finished_at": "2026-05-16T08:05:49.702Z",
+  "duration_ms": 98584,
+  "source": {
+    "tool": "export-bundle",
+    "version": "5.8.0-beta.3",
+    "host": "runner-eu-07",
+    "cwd": "/srv/services/token-compare/releases/2026.05.16",
+    "trace": "tr_01JVB0T24QKJ7TWDQ4RE1HDJ8V",
+    "preserve_raw_content": true
+  },
+  "summary": {
+    "attempted": 9,
+    "completed": 7,
+    "failed": 2,
+    "warnings": 11,
+    "exported_bytes": 224188,
+    "largest_artifact_bytes": 84210,
+    "smallest_artifact_bytes": 912,
+    "message": "Most exports completed, but two localized reports kept raw formatting issues and one relay file included a BOM."
+  },
+  "warnings": [
+    "mixed newline markers detected: \\r\\n, \\n, literal \\\\n in payload previews",
+    "whitespace-rich table rows may inflate token counts unexpectedly",
+    "RTL snippets were preserved unchanged: لا تنظف هذه المسافات",
+    "emoji-heavy note survived dedupe: 👨‍👩‍👧‍👦 ☕🧾🧪➡️✅",
+    "separator storm seen near path-heavy excerpts: :: // \\\\ ###",
+    "fr-FR numeric field used NBSP in '1 244,09'",
+    "one screenshot title contained both composed and decomposed accents: é / é",
+    "Windows relay path preserved exactly",
+    "clipboard export contained tabs and repeated spaces",
+    "markdown digest embeds URLs, hashes, and inline JSON",
+    "customer-visible banner still said 'Healthy-ish ✅' during degradation"
+  ],
+  "artifacts": [
+    {
+      "name": "00-summary.md",
+      "kind": "markdown",
+      "bytes": 84210,
+      "sha256": "31e949efc5c36f6b4b92af0d3773cb4fcab2cf557ab3c612d6a3a7f4eb55df11",
+      "path": "/srv/export/out/2026/05/16/00-summary.md",
+      "preview": "# Daily Export / Résumé / ملخص\\n\\nStatus: partial-success\\n"
+    },
+    {
+      "name": "01-tail.log",
+      "kind": "log",
+      "bytes": 22190,
+      "sha256": "25fbf08714f6ddb5be9d834af783abce108af2fbc050a545df2eab613dfba34e",
+      "path": "/srv/export/out/2026/05/16/01-tail.log",
+      "preview": "2026-05-16T08:04:17Z WARN retry_count=4 locale=bg-BG title=Résumé\\\\n"
+    },
+    {
+      "name": "02-ui-capture.txt",
+      "kind": "text",
+      "bytes": 12107,
+      "sha256": "792f4f43d4941da5d517eb4cced8e82137f31fd546c39a6bf97d6d4fb0d090a4",
+      "path": "C:\\Exports\\2026-05-16\\ui capture\\pane-02.txt",
+      "preview": "badge=Healthy-ish ✅   queue=notify-eu   chart_title=NØRTH\\\\WEST"
+    },
+    {
+      "name": "03-customer-snippets.ndjson",
+      "kind": "ndjson",
+      "bytes": 18118,
+      "sha256": "7444fb5b951d592305918387596e63e5603b737a38ccf4d5660c4cf45d9ac552",
+      "path": "/srv/export/out/2026/05/16/03-customer-snippets.ndjson",
+      "preview": "{\"locale\":\"bg-BG\",\"text\":\"Пак е бавно, но поне е пълно.\"}"
+    },
+    {
+      "name": "04-path-audit.json",
+      "kind": "json",
+      "bytes": 9612,
+      "sha256": "3550403ad523af97f5719185f8f2eb4dd6df0de2bf8c8749efa381ec1c0d59b1",
+      "path": "/srv/export/out/2026/05/16/04-path-audit.json",
+      "preview": "{\"path\":\"/srv/archive/Δaily/2026/05/16/Résumé final/part-01.ndjson\"}"
+    },
+    {
+      "name": "05-broken-relay.txt",
+      "kind": "text",
+      "bytes": 912,
+      "sha256": "7aac3858c41cb8efd88eeb347c0c10e68dfdf14f0d53efeb3326d0215116951a",
+      "path": "C:\\relay\\Exports\\2026-05-16\\客户\\queue review.txt",
+      "preview": "﻿# pasted heading\\nstatus\\tissue\\tnote"
+    },
+    {
+      "name": "06-hash-table.tsv",
+      "kind": "tsv",
+      "bytes": 4107,
+      "sha256": "36d918f3f907c389cad7163b6a2d3cd4bc0a6aacd8f9066958f2b07d91ed0482",
+      "path": "/srv/export/out/2026/05/16/06-hash-table.tsv",
+      "preview": "name\\tsha256\\tbytes\\n00-summary.md\\t31e949...\\t84210"
+    },
+    {
+      "name": "07-emoji-notes.md",
+      "kind": "markdown",
+      "bytes": 1932,
+      "sha256": "99b5e3716acbcf08ac89baeddbd2a33132ed2f83ba286aaf19461dc4843f8de8",
+      "path": "/srv/export/out/2026/05/16/07-emoji-notes.md",
+      "preview": "- 👨‍👩‍👧‍👦 customer batch\\n- ☕ analyst notes\\n- 🧾 receipts\\n- ✅ delivered"
+    }
+  ],
+  "failures": [
+    {
+      "artifact": "08-fr-localized.csv",
+      "stage": "render",
+      "error": {
+        "type": "FormatException",
+        "message": "Input string '1 244,09' was not in a correct format.",
+        "raw_value": "1 244,09",
+        "locale": "fr-FR"
+      },
+      "path": "/srv/export/out/2026/05/16/08-fr-localized.csv",
+      "hint": "NBSP kept intact for replay"
+    },
+    {
+      "artifact": "09-relay-import.json",
+      "stage": "parse",
+      "error": {
+        "type": "JsonException",
+        "message": "Expected start of value, but found '﻿' at byte 0.",
+        "raw_prefix_hex": "EF BB BF 23 20 70 61 73 74 65 64",
+        "note": "BOM + pasted markdown heading"
+      },
+      "path": "C:\\relay\\Exports\\2026-05-16\\客户\\queue review.txt",
+      "hint": "keep original bytes for fixture realism"
+    }
+  ],
+  "snippets": {
+    "chat_like": [
+      "Need the messy bundle, not the cleaned one. Real users paste weird stuff.",
+      "mañana lo revisamos otra vez; ahora ya aparece todo ✅",
+      "Пази табовете, моля. Те са част от проблема.",
+      "ログの最後にだけ 'done-ish 😬' が出る。",
+      "خلّي الـ whitespace كما هو الآن."
+    ],
+    "hashes": [
+      "31e949efc5c36f6b4b92af0d3773cb4fcab2cf557ab3c612d6a3a7f4eb55df11",
+      "25fbf08714f6ddb5be9d834af783abce108af2fbc050a545df2eab613dfba34e",
+      "7444fb5b951d592305918387596e63e5603b737a38ccf4d5660c4cf45d9ac552",
+      "36d918f3f907c389cad7163b6a2d3cd4bc0a6aacd8f9066958f2b07d91ed0482"
+    ],
+    "paths": [
+      "/srv/archive/Δaily/2026/05/16/Résumé final/part-01.ndjson",
+      "/srv/export/out/2026/05/16/00-summary.md",
+      "C:\\Exports\\2026-05-16\\ui capture\\pane-02.txt",
+      "\\\\nas-eu-02\\exports\\shared\\2026\\05\\16\\ملخص final.xlsx"
+    ],
+    "urls": [
+      "https://diag.example.net/export/view?id=exp_01JVB0T42S4K3D8P5E3E2N7ZQK&lang=bg-BG",
+      "https://grafana.example.net/d/lag-77/queue-lag?var-cluster=eu-west-1&var-pane=retry",
+      "https://storage.example.net/raw/2026/05/16/03-customer-snippets.ndjson?download=1"
+    ]
+  },
+  "tables": {
+    "owner_status": [
+      {
+        "owner": "ana",
+        "status": "done",
+        "emoji": "☕",
+        "path": "/srv/archive/Δaily/2026/05/16/summary.md",
+        "comment": "looks stable now"
+      },
+      {
+        "owner": "li",
+        "status": "hold",
+        "emoji": "🧪",
+        "path": "C:\\relay\\Exports\\2026-05-16\\客户\\queue review.txt",
+        "comment": "BOM still present"
+      },
+      {
+        "owner": "omar",
+        "status": "done",
+        "emoji": "📦",
+        "path": "/srv/archive/ar/final.txt",
+        "comment": "النتيجة سليمة لكن العنوان مكرر"
+      },
+      {
+        "owner": "hiro",
+        "status": "investigating",
+        "emoji": "📝",
+        "path": "/Users/hiro/Desktop/exports/検証.txt",
+        "comment": "見出しと表が重なった"
+      },
+      {
+        "owner": "sofia",
+        "status": "done",
+        "emoji": "✅",
+        "path": "\\\\nas-eu-02\\exports\\bg\\2026\\05\\16\\review.tsv",
+        "comment": "Проверено, но пазете whitespace-а"
+      }
+    ],
+    "metric_rollup": [
+      { "name": "requests_total", "value": 182994, "delta": "+3.1%" },
+      { "name": "retries", "value": 441, "delta": "+18.7%" },
+      { "name": "mixed_newline_samples", "value": 29, "delta": "+8" },
+      { "name": "separator_collisions", "value": 53, "delta": "+21" },
+      { "name": "unicode_edge_cases", "value": 88, "delta": "+17" },
+      { "name": "paths_with_spaces", "value": 14, "delta": "+5" }
+    ]
+  },
+  "raw_preview": {
+    "header": "status\\tqueue\\tlag\\tnote\\npartial-success\\tnotify-eu\\t9.1s\\tpreserved tabs + hashes",
+    "inline_json": "{\"kind\":\"digest\",\"emoji\":\"☕📦🚨\",\"title\":\"Résumé / Сводка / ملخص\"}",
+    "inline_yaml": "window: [08:04, 08:05, 08:06]\\nflags: [preserve-raw, keep-tabs, no-normalize]",
+    "regex": "^(?<env>[a-z-]+)::(?<shard>[0-9]+)/(?:Δaily|daily)/(?<name>.+)$"
+  },
+  "recommendation": {
+    "priority": "high",
+    "action": "add to ToolResult fixtures as a large realistic raw sample",
+    "reason": "blends structured JSON with noisy previews, multilingual text, paths, hashes, URLs, tabs, and whitespace-heavy fragments"
+  }
+}

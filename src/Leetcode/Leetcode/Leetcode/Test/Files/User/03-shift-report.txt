@@ -1,0 +1,69 @@
+Shift report, expanded and still messy:
+
+00:14 UTC — pager chirped once, then politely pretended nothing happened.
+00:19 UTC — edge node `blue-17` recycled a worker; first guess was OOM, second guess was "someone attached a giant payload full of flags, accents, and hope."
+00:23 UTC — customer from Sao Paulo pasted:
+  "pedido 8841 => status ??? / tela travada / botao cinza / agora voltou / depois nao voltou"
+00:27 UTC — Bulgarian note on the whiteboard:
+  "Ако пак забие, пазете raw текста, не само скрийншота."
+00:31 UTC — coordinates sent in chat with no explanation:
+  42.6977, 23.3219
+00:36 UTC — req bundle observed:
+  req_id=9b8e-77f1-cc0a
+  span=ingest.sync.delta
+  shard=eu-west/blue::17
+  locale_hint=mix-bg-ja
+  attachment=final-final-v7(2).zip
+
+00:41 UTC — phrase salad collected from the same thread:
+  dobro utro | guten Morgen | صباح الخير | bonjour | 你好 | おはよう | kaffee?
+
+00:46 UTC — suspect JSON from a debug panel:
+  {"mode":"dry-run","limit":25,"filters":["hot","stale","ßeta","Δelta"],"strict":false,"render":"compact"}
+
+00:53 UTC — mini terminal capture:
+  C:\ops\archive\mu-service\crash?.dmp
+  /srv/run/@odd/Delta/replay.log
+  \\server\share\logs\night\parser-07.log
+
+01:02 UTC — user sentence copied exactly:
+  "if the mirror says retry_retry_retry, maybe the parser is eating separators again..."
+
+01:08 UTC — local notes from ops:
+  - metrics looked stable until the very short prompts hit the queue
+  - p99 bounced from 241ms to 388ms, then acted innocent
+  - one dashboard title flipped from "North/West" to "NORTH::WEST" and back
+  - someone wrote "no broad fixes, just find the sharp edge"
+
+01:15 UTC — strings worth preserving for tokenizer demos:
+  1. cafe_receipt_total=EUR18.05
+  2. family_emoji=👨‍👩‍👧‍👦
+  3. decomposed=é ; composed=é
+  4. shrug=¯\_(ツ)_/¯
+  5. arrows=↺ ↻ ↯ ⇢ ⇠
+  6. currencies=€ £ ¥ ₹ ₿
+  7. tags=[tiny, mixed, noisy, plausible]
+
+01:22 UTC — rough risk bullets:
+  - mixed newline styles in pasted snippets
+  - escaped JSON nested inside prose
+  - slashes, colons, and path separators colliding
+  - zero-width joiners hiding inside emoji clusters
+  - users copying text from mobile apps, PDFs, terminals, and chats into one box
+
+01:31 UTC — final ask from lead:
+  "boil this to three bullets, keep the odd symbols intact, and tell me whether the strange bits are dangerous or just noisy."
+
+Appendix A — short rows copied for later:
+  row_01 => bg-BG => "Пусни build-а, ама не пипай auth_v2."
+  row_02 => ja-JP => "ログを三回チェックする、でも慌てない。"
+  row_03 => ar-SA => "فيه فرق بسيط بين النص القصير والنص الفوضوي."
+  row_04 => mix   => "route=/x/μ?flag=ß&ok=true"
+  row_05 => mix   => "box=[<>[]{}()] noise=§¶※"
+
+Appendix B — tired human footer:
+  coffee=too-much
+  confidence=medium
+  panic=contained
+  recommendation=replay the weirdest five samples before anyone says "looks fine"
+

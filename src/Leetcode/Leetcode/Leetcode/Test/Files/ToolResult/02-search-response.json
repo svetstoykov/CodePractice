@@ -1,0 +1,42 @@
+{
+  "query": "tokenizer drift Δ vs baseline",
+  "total_hits": 5,
+  "results": [
+    {
+      "rank": 1,
+      "title": "Tokenizer drift in mixed-script corpora",
+      "score": 0.991,
+      "snippet": "Observed spikes around emoji clusters 👩🏽‍💻, path fragments, escaped JSON payloads, and short prompts padded with symbols."
+    },
+    {
+      "rank": 2,
+      "title": "Practical notes on GPT-style token accounting",
+      "score": 0.944,
+      "snippet": "Whitespace, punctuation grouping, and newline style can swing counts by 5-12% on short inputs and much more on mixed snippets."
+    },
+    {
+      "rank": 3,
+      "title": "Unicode surprises: ZWJ, combining marks, and boxes",
+      "score": 0.901,
+      "snippet": "Flags 🇧🇬 and decomposed characters like e\\u0301 behave differently from plain ASCII; box-drawing text also shifts chunking."
+    },
+    {
+      "rank": 4,
+      "title": "Separator collapse in logs and command output",
+      "score": 0.876,
+      "snippet": "Repeated delimiters like ::, //, and retry_retry_retry become noisy when pasted from terminals, chats, and web dashboards."
+    },
+    {
+      "rank": 5,
+      "title": "Why neat benchmark prompts miss production mess",
+      "score": 0.842,
+      "snippet": "Real traffic blends tables, file paths, Markdown, multiple languages, and emotional punctuation in the same request."
+    }
+  ],
+  "meta": {
+    "trace": "srch_7Q9-β-44",
+    "ranker": "hybrid-v2",
+    "served_by": "search-eu-west-1"
+  }
+}
+

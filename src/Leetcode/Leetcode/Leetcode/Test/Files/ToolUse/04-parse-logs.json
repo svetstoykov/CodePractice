@@ -1,0 +1,57 @@
+{
+  "path": "/srv/apps/ingest/current/logs/edge-07/parser.log",
+  "pattern": "^(?<ts>\\d{4}-\\d{2}-\\d{2}T[^ ]+)\\s+(?<lvl>[A-Z]+)\\s+(?<msg>.*)$",
+  "window": {
+    "start": "2026-05-13T23:00:00Z",
+    "end": "2026-05-14T04:00:00Z"
+  },
+  "extract": [
+    "req_id",
+    "span",
+    "tenant",
+    "Δcpu",
+    "μ_wait",
+    "locale",
+    "render_state",
+    "release"
+  ],
+  "redact": ["token", "secret", "api_key", "session_cookie"],
+  "keep": {
+    "stack_traces": true,
+    "weird_whitespace": true,
+    "lines_with": ["↯", "retry_retry", "NØRTH\\\\WEST", "👨‍👩‍👧‍👦"]
+  },
+  "parsing_modes": [
+    {
+      "name": "strict",
+      "collapse_blank_lines": false,
+      "normalize_newlines": false
+    },
+    {
+      "name": "tolerant",
+      "allow_box_drawing": true,
+      "preserve_unmatched_lines": true
+    }
+  ],
+  "sample_hints": [
+    "payload may contain nested JSON encoded as a string",
+    "some lines may carry Markdown tables or YAML fragments",
+    "short samples underrepresent separator collisions",
+    "watch for composed vs decomposed accents inside otherwise plain Latin text",
+    "keep confusable characters like A Α А visible in extracted previews",
+    "accept lines copied from terminals, issue trackers, and chat apps in one stream"
+  ],
+  "report_shape": {
+    "include_counts_by_level": true,
+    "include_top_weird_lines": 12,
+    "include_path_samples": true,
+    "include_locale_examples": true
+  },
+  "example_lines": [
+    "2026-05-14T03:11:12Z ERROR req=ab12 msg=\"bad token ↯\"",
+    "2026-05-14T03:11:15Z INFO  pasted=\"добро утро | bonjour | 你好\"",
+    "2026-05-14T03:11:18Z WARN  path=\"C:\\\\ops\\\\archive\\\\μ-service\\\\crash?.dmp\"",
+    "2026-05-14T03:11:21Z INFO  note=\"é vs é still visible in raw capture\""
+  ],
+  "notes": "keep stack traces, keep weird whitespace, keep lines with ↯, keep confusables and accents, and do not strip slashes or markdown-looking text"
+}

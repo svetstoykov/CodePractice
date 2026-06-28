@@ -1,0 +1,8 @@
+status=OK
+exit_code=0
+elapsed_ms=128
+trace=tool_01x-mini
+note=No blocking anomalies found.
+detail=Short sample parsed cleanly; accents, emoji, and slashes preserved.
+tags=[small,mixed,realistic,✅]
+

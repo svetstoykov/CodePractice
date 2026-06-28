@@ -1,0 +1,108 @@
+symbol burst, deliberately dense but still somewhat real:
+
+ASCII lane:
+<> [] {} () // \\ ~~ !! ?? :: .. ... == != <= >= => <- -> <-> ++ -- ** ##
+paths: /api/v1/ping /srv/run/@odd/Δelta/replay.log C:\ops\archive\μ-service\crash?.dmp \\server\share\logs\blue-17\parser.log
+urls: https://example.test/q?x=1&y=β#frag | file:///tmp/mix/notes.txt | s3://ops-eu-west-1/raw/metrics/2026/05/14/
+
+currency and counts:
+€4.20 €18.05 £7.70 ¥1200 ₹399 ₿0.0042
+1, 7, 13, 29, 42, 108, 256, 1024, 4096
+0xFF 0b101101 3.14159 2.71828 -17 +88.1 99.97%
+
+arrows and operators:
+← ↑ → ↓ ↖ ↗ ↘ ↙ ↺ ↻ ↯ ⇐ ⇒ ⇢ ⇠ ⇡ ⇣
+± × ÷ ≈ ≠ ≤ ≥ ∑ ∏ ∫ √ ∞ ∂ ∆ µ Ω
+logic: && || ?? ?: ! ~ ^ & | << >> >>> ...
+
+boxes, lines, and pseudo-ui:
+┌──────────────┬──────────────────────────────┐
+│ field        │ value                        │
+├──────────────┼──────────────────────────────┤
+│ release      │ 2026.05.14-hotfix+exp.3     │
+│ checksum     │ b7f2:aa91:44ef:09d1         │
+│ state        │ partial-success             │
+│ oddity       │ retry_retry_retry           │
+│ verdict      │ "noisy but interesting"     │
+└──────────────┴──────────────────────────────┘
+
+greek and friends:
+α β γ δ ε ζ η θ ι κ λ μ ν ξ ο π ρ σ τ υ φ χ ψ ω
+Α Β Γ Δ Ε Ζ Η Θ Ι Κ Λ Μ Ν Ξ Ο Π Ρ Σ Τ Υ Φ Χ Ψ Ω
+math-ish phrase: Δtokens/Δinput ≈ unstable when μ_text meets emoji clusters
+
+cyrillic lane:
+добро утро
+Пусни build-а след обяд.
+Нищо не е счупено, просто е странно.
+Входът е къс, изходът е нервен, логът е прекалено честен.
+
+arabic lane:
+صباح الخير
+النص القصير سهل، لكن النص المختلط يحب الفوضى.
+خلّي الرموز كما هي: § ¶ ※ ↯ ✓ ✗
+
+hebrew lane:
+בוקר טוב
+אם הטקסט נראה מוזר, אל תמחק את הסימנים.
+בדיקה קצרה, קלט ארוך, פלט לא תמיד צפוי.
+
+devanagari lane:
+नमस्ते
+छोटा पाठ आसान है, लेकिन मिला-जुला इनपुट अजीब हो सकता है।
+संकेत: [], {}, (), \\, emoji, और संयोजन चिह्न।
+
+hangul lane:
+안녕하세요
+짧은 문자열은 괜찮지만, 기호와 이모지가 섞이면 결과가 달라질 수 있다.
+로그에는 이상한 공백도 남겨 둬라.
+
+japanese lane:
+おはようございます
+ログを三回チェックする
+短い入力、長い入力、そして妙に混ざった入力を比べる
+半角/全角, カタカナ, ひらがな, 漢字, emoji をそのまま残す
+
+chinese lane:
+你好
+短文本很简单，混合文本更像现实世界。
+保留路径、符号、货币、表情、以及奇怪的分隔符。
+
+korean+japanese+emoji mix:
+빌드 확인 → ログ確認 → diff確認 → ✅
+問題ない…たぶん…でも `👨‍👩‍👧‍👦` は別枠で見ておく
+
+emoji clusters:
+☕🧾🧪➡️✅
+👩🏽‍💻🧠📦✨
+🧯🔥➡️😌
+🛰️📡🌧️
+🇧🇬 🇯🇵 🇧🇷 🇪🇬 🇩🇪
+family: 👨‍👩‍👧‍👦
+skin tones: 👍 👍🏽 👍🏿
+weather: ☀️🌤️⛈️🌫️
+
+combining and confusables:
+e + ́  => é
+plain: resume
+accented: résumé
+latin-ish lookalikes: A Α А | B Β В | E Ε Е | O Ο О | P Ρ Р | C С
+
+fragments of structured text:
+json={"mode":"safe","tenant":"β","flags":["drain","shadow","ζeta"],"ok":true}
+csv=id,name,score\n7,"Léo",98.4\n8,"Ivy",88.1\n9,"Mina",91.0
+yaml=window: [7, 13, 29]\nregions: [eu-west, ap-northeast]\nnotes: ["keep odd whitespace", "preserve accents"]
+regex=^(?<tag>[A-Z]{2,5})-(?<num>\d{3,6})(?:/(?<mode>fast|safe|μ))?$
+sql=SELECT id,status FROM jobs WHERE status IN ('queued','stuck','curious');
+
+chat scraps:
+"ship the patch, but don't touch auth_v2 yet"
+"the dashboard title flipped to NØRTH\\WEST"
+"if the mirror says retry_retry_retry, maybe the parser is hungry"
+"leave the symbols intact; they are the point, not the bug"
+
+footer symbols:
+§ ¶ ※ ‼ ‽ † ‡ • ◦ ‣ ‰ ‱ ™ © ®
+♞ ♜ ♛ ♚ ♻︎ ☂ ☼ ☾ ⚙︎ ⌘ ⌥ ⇧
+end marker = [small -> medium -> large -> very_large]
+

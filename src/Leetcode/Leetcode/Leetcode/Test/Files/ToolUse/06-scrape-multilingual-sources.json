@@ -1,0 +1,221 @@
+{
+  "workflow": "multilingual-search-and-scrape-batch",
+  "operator": "discovery-assistant",
+  "objective": "Collect realistic, messy prompt samples around release drift, path escaping, retry loops, and multilingual operator notes without flattening whitespace or emoji.",
+  "search_batches": [
+    {
+      "label": "release-drift",
+      "queries": [
+        {
+          "text": "release drift Δ artifact mismatch \"linux-x64\" \"osx-arm64\" symbols sbom",
+          "language": "en",
+          "limit": 7,
+          "must_include": [
+            "portable-logs",
+            "checksums",
+            "v2026.05.14-hotfix"
+          ]
+        },
+        {
+          "text": "разлика в артефактите 🔧 release notes счупен checksum",
+          "language": "bg+ru",
+          "limit": 5,
+          "must_include": [
+            "sha256",
+            "release_body_format",
+            "β7"
+          ]
+        },
+        {
+          "text": "差分 レポート emoji family 👨‍👩‍👧‍👦 token 数 変動",
+          "language": "ja",
+          "limit": 4,
+          "must_include": [
+            "ZWJ",
+            "token estimate",
+            "locale breakdown"
+          ]
+        }
+      ],
+      "post_fetch": {
+        "extract": [
+          "title",
+          "url",
+          "snippet",
+          "lang",
+          "published_at",
+          "path_samples",
+          "unicode_flags"
+        ],
+        "snippet_windows": [
+          180,
+          320,
+          640
+        ],
+        "keep_raw_html_if": [
+          "contains_table",
+          "contains_pre_block",
+          "contains_mixed_script_heading"
+        ]
+      }
+    },
+    {
+      "label": "customer-language-pain",
+      "queries": [
+        {
+          "text": "مرحبا build fails عند نسخ المسارات C:\\\\ops\\\\archive\\\\μ-service\\\\crash?.dmp",
+          "language": "ar+en",
+          "limit": 6,
+          "must_include": [
+            "path",
+            "escape",
+            "Windows"
+          ]
+        },
+        {
+          "text": "bonjour / добро утро / नमस्ते retry_retry backoff_ms 240 720 2160",
+          "language": "fr+bg+hi",
+          "limit": 6,
+          "must_include": [
+            "retry",
+            "backoff",
+            "transient"
+          ]
+        },
+        {
+          "text": "¿por qué el scraper guarda líneas con espacios raros   y saltos\\n\\nmezclados? 🤖",
+          "language": "es",
+          "limit": 5,
+          "must_include": [
+            "weird whitespace",
+            "normalize_newlines=false"
+          ]
+        }
+      ],
+      "post_fetch": {
+        "extract": [
+          "summary",
+          "quoted_phrases",
+          "emoji_clusters",
+          "copy_paste_risks"
+        ],
+        "snippet_windows": [
+          200,
+          480
+        ],
+        "keep_raw_html_if": [
+          "contains_code_fence",
+          "contains_emoji",
+          "contains_direction_marks"
+        ]
+      }
+    }
+  ],
+  "crawl": {
+    "seeds": [
+      {
+        "url": "https://docs.example.internal/runtime/release-notes/v2026.05.14-hotfix?lang=en#artifacts",
+        "note": "Primary release note page"
+      },
+      {
+        "url": "https://status.example.internal/incidents/Δ-tokenizer-drift?view=timeline&locale=bg-BG",
+        "note": "Incident timeline with operator comments"
+      },
+      {
+        "url": "https://forum.example.net/t/%E6%B7%B7%E5%90%88-script-%E6%A4%9C%E7%B4%A2/8831",
+        "note": "Mixed-script community report"
+      },
+      {
+        "url": "https://kb.example.org/a/%D9%85%D8%B9%D8%A7%D9%84%D8%AC%D8%A9-%D8%A7%D9%84%D9%85%D8%B3%D8%A7%D8%B1%D8%A7%D8%AA?src=tool-use",
+        "note": "Arabic path-handling FAQ"
+      }
+    ],
+    "allowed_domains": [
+      "docs.example.internal",
+      "status.example.internal",
+      "forum.example.net",
+      "kb.example.org"
+    ],
+    "deny_patterns": [
+      "**/logout**",
+      "**/preview-only/**",
+      "**/*.mp4",
+      "**/tracking/pixel*",
+      "**?download=raw-secrets*"
+    ],
+    "headers": {
+      "Accept-Language": "bg,en;q=0.9,ja;q=0.8,ar;q=0.7,es;q=0.6",
+      "User-Agent": "tool-use-fixture-bot/1.0 (+https://example.internal/bots/discovery)",
+      "X-Trace-Emoji": "🛰️🔎🧪",
+      "X-Session-Note": "keep   spaced   text, keep ZWJ 👨‍👩‍👧‍👦, keep e\\u0301"
+    },
+    "browser": {
+      "mode": "headful-snapshot",
+      "timezone": "Europe/Sofia",
+      "viewport": {
+        "width": 1520,
+        "height": 2140
+      },
+      "wait_for": [
+        "networkidle",
+        "css=.release-card",
+        "text=/retry_retry|Δelta|NØRTH\\\\WEST/"
+      ],
+      "extra_scroll_steps": 5,
+      "capture": {
+        "html": true,
+        "markdown": true,
+        "screenshots": [
+          "full-page",
+          "section:.artifact-table",
+          "section:#operator-notes"
+        ]
+      }
+    },
+    "download": {
+      "save_to": [
+        "/srv/cache/tool-use/harvest/2026-05-14/session-α/",
+        "D:\\\\archives\\\\tool-use\\\\release drift\\\\",
+        "\\\\\\\\nas-02\\\\captures\\\\mixed-script\\\\batch-06\\\\"
+      ],
+      "filename_template": "{{batch}}__{{lang}}__{{slug}}__{{ts}}",
+      "sidecars": [
+        "raw.html",
+        "clean.md",
+        "text.txt",
+        "meta.json"
+      ]
+    }
+  },
+  "prompt_scaffold": {
+    "system": "You are collecting search and scrape results for later tool execution. Preserve user-visible oddities, spacing, diacritics, and emoji.\n\nDo not normalize:\n  - e\\u0301 vs é\n  - Arabic direction marks\n  - repeated spaces inside pasted shell lines\n  - emoji sequences like 👨‍👩‍👧‍👦 or 🧪✨\n",
+    "user_template": "For each result, keep a compact title, the canonical URL, a 2-3 line snippet, and a short why-it-matters note.\n\nIf a page includes a code block or path example, copy it verbatim.\n\nPreferred snippet style:\n  • one plain-language line\n  • one symbolic/noisy line if available\n  • one locale-specific quote if available\n"
+  },
+  "retry": {
+    "max_attempts": 5,
+    "classification": {
+      "retry_on": [
+        "http_408",
+        "http_429",
+        "http_500",
+        "browser_navigation_timeout",
+        "dns_soft_failure"
+      ],
+      "do_not_retry_on": [
+        "http_401",
+        "http_403",
+        "robots_denied",
+        "schema_validation_error"
+      ]
+    },
+    "backoff_ms": [
+      250,
+      750,
+      2250,
+      6750,
+      12000
+    ],
+    "jitter_ratio": 0.18
+  },
+  "trace": "harvest_06_2026-05-14__π9-🛰️"
+}

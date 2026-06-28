@@ -1,0 +1,47 @@
+{
+  "searches": [
+    {
+      "query": "tokenizer drift Δ vs baseline",
+      "limit": 3,
+      "intent": "find mixed-script regressions"
+    },
+    {
+      "query": "emoji ZWJ family 👨‍👩‍👧‍👦 token count",
+      "limit": 2,
+      "intent": "check cluster behavior"
+    },
+    {
+      "query": "C# path escaping \\\\server\\share\\logs",
+      "limit": 4,
+      "intent": "stress slashes and backslashes"
+    },
+    {
+      "query": "decomposed e\\u0301 vs composed é tokenization",
+      "limit": 4,
+      "intent": "compare normalization-sensitive samples"
+    },
+    {
+      "query": "Markdown table pipes and fenced SQL block token overhead",
+      "limit": 3,
+      "intent": "test lightweight formatting noise"
+    },
+    {
+      "query": "Arabic Cyrillic Japanese mixed prompt separators :: // =>",
+      "limit": 5,
+      "intent": "find plausibly chaotic real-world prompts"
+    }
+  ],
+  "ranker": "hybrid-v2",
+  "retry": {
+    "max_attempts": 3,
+    "backoff_ms": [80, 240, 720]
+  },
+  "output": {
+    "group_by": "query",
+    "include_scores": true,
+    "include_snippets": true,
+    "max_snippet_chars": 180
+  },
+  "trace": "srch_7Q9-β-44"
+}
+

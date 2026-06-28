@@ -1,0 +1,187 @@
+INBOX COLLISION / Monday / 06:11 → 09:02
+==============================================================
+
+Need a human summary, not a pristine rewrite.
+Please leave the odd spacing, quotes, typo energy, emoji, and cross-language collisions alone.
+
+06:11  From: support@market.example
+       Subject: Re: "invoice?? app freeze?? order maybe okay??"
+       Body:
+         Morning — dumping everything here because the ticket kept reopening.
+         User says payment went through, then screen froze, then unfroze, then looked "half-translated".
+         Also attached: one receipt, one photo of another screen, and one line saying "pls don't lose accents".
+
+06:14  Voice-to-text from commuter train:
+       "bom dia   the button looked disabled but the purchase maybe completed, tenho o comprovante, não tenho paz"
+
+06:17  Pinned note from Sofia:
+       "Пази суровия текст.   Не само screenshot.   Точно странното помага."
+
+06:19  Slack fragment:
+       <luc.fr>    le titre faisait `NØRTH\WEST` pendant ~20 sec, puis il a repris son souffle
+       <nora.en>   not outage-outage, more like UI panic with good intentions
+       <kai.de>    bitte die Sonderzeichen nicht glätten; der Fehler steckt vielleicht genau da
+
+06:22  Quick list somebody pasted from Notes.app:
+       [ ] receipt total
+       [ ] time of confirmation email
+       [ ] exact wording from customer
+       [ ] browser / device / roaming?
+       [x] coffee
+       [x] more coffee
+
+06:25  User wording copied exactly:
+       "hi sorry this is chaotic but i paid, got the bank ping ✅, app still spinning 🌀,
+        then title changed language?? then button said wait... then email arrived... then app caught up"
+
+06:28  Another user, German locale:
+       "Bezahlung okay, Anzeige komisch, Region plötzlich 'NORTH :: WEST', danach wieder normal."
+
+06:31  Another user, French locale:
+       "j'ai reçu le mail avant la carte dans l'application, alors j'ai cru que tout était cassé 😵"
+
+06:34  Another user, Japanese locale:
+       "メールは来たのに、アプリの表示が遅れていて、完了したのか不安でした"
+
+06:36  Another user, Hindi + English:
+       "payment ho gaya lagta hai, but app mein ticket card bahut late aaya, isliye panic ho gaya"
+
+06:39  Loose strings to preserve
+       route=/checkout/final?tenant=blue-market&region=eu-west::17
+       title_variants=["North/West","NØRTH\\WEST","NORTH :: WEST"]
+       symbols=[]{}() <> // \\ :: == != <= >= ~~ ?? !! ## %%
+       emoji=☕🧾💳🌀📩✅🤯
+       currencies=€  £  ¥  ₹  R$  CHF
+
+06:44  Micro-table from a spreadsheet export:
+
+       ticket      | locale | symptom                 | last_seen
+       ------------+--------+-------------------------+----------------------
+       CS-88419    | bg-BG  | disabled button         | 2026-06-14 07:11 UTC
+       CS-88421    | de-DE  | title label flip        | 2026-06-14 07:18 UTC
+       CS-88424    | fr-FR  | email before app card   | 2026-06-14 07:31 UTC
+       CS-88430    | ja-JP  | "done?" uncertainty     | 2026-06-14 07:34 UTC
+       CS-88433    | pt-BR  | spinner + duplicate fear| 2026-06-14 07:42 UTC
+
+06:48  File paths and links dropped into the thread with zero explanation:
+       /srv/apps/front/current/labels/regions.json
+       /var/log/edge/blue-17/render/checkout-2026-06-14.log
+       C:\ops\captures\weekend\screen 7 final FINAL.png
+       \\hq-share\support\handoff\weekend\customer_dump.txt
+       https://status.example.test/incidents/checkout-button
+       https://help.example.test/articles/payment-complete-ui-delayed
+
+06:52  Email footer somebody forgot to trim:
+       —
+       Sent from my phone, sorry for formatting.
+       Enviado desde el pasillo del aeropuerto.
+       Gesendet zwischen Gate A12 und einem café, keine Witze.
+       —
+
+06:55  Tiny pasted JSON:
+       {"trace":"monday-β17","mode":"safe","region":"eu-west/blue::17","state":"recovered-ish","emails_sent":7}
+
+06:58  Tiny pasted CSV:
+       id,name,total,comment
+       88419,"A. Petrova","€18.05","mail first, card later"
+       88421,"L. Becker","€42.90","title looked haunted"
+       88433,"R. Lima","R$129,00","spinner + fear + eventual success"
+
+07:02  Regex someone claimed mattered:
+       ^(?<area>[A-Z][a-z]+(?:/[A-Z][a-z]+)?)(?<noise>\s*[:\\-]{1,3}\s*)?(?<suffix>WEST|EAST|NORTH|SOUTH)$
+
+07:05  Box-drawing from a whiteboard photo, manually retyped:
+       ┌───────────────┬─────────────────────────────────────────────┐
+       │ signal        │ notes                                       │
+       ├───────────────┼─────────────────────────────────────────────┤
+       │ payment       │ likely okay                                 │
+       │ email         │ often earlier than in-app card              │
+       │ region label  │ flickered / fallback / not catastrophic     │
+       │ user feeling  │ "I paid and now I don't trust anything"     │
+       └───────────────┴─────────────────────────────────────────────┘
+
+07:11  Café receipt, front side:
+       flat white ............. €4.20
+       sandwich ................ €7.90
+       extra water ............. €1.10
+       total .................. €13.20
+       handwritten: "triage fuel, not product evidence"
+
+07:13  Train station receipt, back side:
+       locker A-17 ............ €6.00
+       note: "customer called while I was paying this"
+
+07:16  Message from field rep in Lisbon:
+       "o cliente disse que a aplicação ficou com cara de rascunho — metade normal, metade estranha"
+
+07:21  Message from support lead:
+       "Don't summarize away the panic.
+        The system recovered fast; the person didn't."
+
+07:25  Raw snippet from browser console:
+       level=WARN component=checkout-button msg="disabled state lingered after success"
+       trace=monday-β17 delay_ms=19384 retries=2 label_fallback="NØRTH\\WEST"
+
+07:31  Another raw snippet:
+       level=INFO component=mail-sync msg="confirmation email already sent"
+       ticket=CS-88424 locale=fr-FR mail_time=07:12:44Z card_visible_time=07:25:02Z
+
+07:36  Messy quote pasted from WhatsApp export:
+       "sí pagué  / no vi confirmación  / luego vi correo  / luego vi ticket  / ya no sé si reír o gritar"
+
+07:39  Messy quote pasted from Telegram export:
+       "не знам дали е счупено, но със сигурност изглежда подозрително"
+
+07:42  Messy quote pasted from chat widget:
+       "I only need to know two things:
+        1) did I pay twice
+        2) why does the page look like three interns edited it on a bus"
+
+07:48  Pseudo-shell history from ops:
+       dotnet test --nologo
+       git diff --stat
+       grep -n "NØRTH\\WEST" checkout-2026-06-14.log
+       less   <-- no, not helpful at 07:48
+
+07:52  Strings that looked tiny but were surprisingly useful:
+       e + ́ => é
+       résumé / resume
+       São Paulo / Sao Paulo
+       München / Munchen
+       北 / 北西 / North-West
+
+07:58  More language scraps
+       EN: "messy input ≠ bad input"
+       BG: "Странните интервали също носят сигнал."
+       FR: "les slashs, les quotes et les accents ne sont pas du bruit gratuit"
+       DE: "wenn es wie echtes Leben aussieht, ist es wahrscheinlich ein besserer Test"
+       PT: "texto feio, cenário honesto"
+       JA: "現実の入力はきれいではない"
+
+08:05  Notes from PM call:
+       - risk low for duplicate charge
+       - risk medium for trust / confusion
+       - risk high for any demo that only uses clean textbook strings
+       - keep five weird examples before someone "sanitizes" them into uselessness
+
+08:18  Tiny markdown somebody pasted inside plain text:
+       **Need by 09:00**
+       - 3 bullets
+       - 1 scary thing
+       - 1 not-scary-but-ugly thing
+       - preserve UTF-8, preserve emojis, preserve odd punctuation
+
+08:34  Final question from leadership:
+       "So... was the app broken, or was it just communicating badly while technically succeeding?"
+
+08:41  Honest answer drafted on the platform:
+       Technically: mostly succeeding.
+       Visually: occasionally haunted.
+       Humanly: stressful enough that the messy wording is the evidence.
+
+08:57  Footer
+       status=open-but-calm
+       confidence=medium
+       recommendation=replay five noisiest samples before merge
+       emoji_tail=☕🧾📩🌀✅📱🚉
+

@@ -1,0 +1,11 @@
+{
+  "city": "Sofia",
+  "country": "BG",
+  "query": "weather at 07:45 tomorrow ☁️ with a short plain-language note",
+  "units": "metric",
+  "days": 1,
+  "locale": "bg-BG",
+  "include": ["summary", "hourly", "emoji-hint"],
+  "trace": "wx_01_mini_α"
+}
+

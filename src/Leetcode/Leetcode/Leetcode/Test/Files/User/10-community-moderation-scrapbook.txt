@@ -1,0 +1,212 @@
+COMMUNITY MODERATION SCRAPBOOK / exports from forum, inbox, chat, and one spreadsheet
+=======================================================================================
+
+Purpose:
+Keep a handful of realistic, high-noise user-style messages for parser and summary tests.
+Not spammy nonsense; actual human-looking mess: mixed languages, pasted markdown, code fences,
+appeals, timestamps, emoji trails, links, receipts, paths, and "sorry for the formatting" energy.
+
+09:01  Queue note
+       Morning volume looked normal, but the appeals queue got noisy fast.
+       Not abusive, mostly frazzled.  Lots of "my post disappeared???" + screenshots + copied IDs.
+
+09:04  Moderator handoff
+       "Please don't trim the weird punctuation.
+        People copy from mobile, from email, from browser, from translation widgets.
+        The ugliness is the realism."
+
+09:07  Post removal appeal #1
+       EN:
+       "hi, I think my post was auto-hidden because I edited it twice and added three links,
+        but it was just a meetup note + a price list + train times.  can someone human-check?"
+
+09:10  Post removal appeal #2
+       BG:
+       "Здравейте, темата ми не беше спам. Просто копирах бележки от телефона и стана грозно."
+
+09:12  Post removal appeal #3
+       ES:
+       "copié horarios, precios, una ruta de tren y el sistema decidió que era sospechoso 😅"
+
+09:15  Post removal appeal #4
+       FR:
+       "j'avais mis des puces, un tableau, deux liens et une citation — apparemment c'était trop"
+
+09:18  Post removal appeal #5
+       DE:
+       "ich habe nur die Infos aus dem Newsletter übernommen, inklusive Sonderzeichen und Zeiten"
+
+09:21  Post removal appeal #6
+       PT-BR:
+       "colei tudo do bloco de notas: preços, rota, emoji, horários... ficou feio, mas era legítimo"
+
+09:24  Post removal appeal #7
+       JA:
+       "メモアプリからそのまま貼っただけで、宣伝扱いになってしまいました"
+
+09:27  Post removal appeal #8
+       AR:
+       "نسخت ملاحظات اللقاء كما هي، مع الروابط والأسعار، ثم اختفى المنشور فجأة"
+
+09:31  Moderator sticky note
+       - false positives cluster around "lots of structure + lots of symbols"
+       - plain English one-liners pass easily
+       - real community posts look like mini scrapbooks
+       - keep 5 samples with bullets, tables, paths, and emoji
+
+09:36  Example of a totally normal messy meetup post
+       title="Sunday board games + coffee + train times?"
+       body:
+         hi all — testing Sunday plan here because the old thread vanished.
+         meetup point: Café Prisma, near station west exit
+         time: 11:30-ish
+         budget: €7-12 depending on coffee bravery
+         train notes:
+           - RE 204 at 10:42
+           - local 17B at 10:55
+           - if delayed, text "running-late-but-coming"
+         extras:
+           - bring charger
+           - one table already reserved ✅
+           - weather looked like ☀️ then 🌧️ then "who knows"
+
+09:42  Same post, but copied from another app with extra formatting:
+       **Sunday board games + coffee + train times?**
+
+       | item | detail |
+       | --- | --- |
+       | meetup | Café Prisma |
+       | time | 11:30-ish |
+       | budget | €7-12 |
+       | station | west exit / platform maybe 3 |
+       | weather | ☀️ → 🌧️ → 🤷 |
+
+       Route bits:
+       `/meetups/2026/08/prisma-west`
+       `C:\users\mod\captures\boardgames sunday final.png`
+       `\\community-share\exports\appeals\august\post-8841.txt`
+
+09:49  Spreadsheet crumbs
+       case_id   | locale | reason_guess                  | verdict
+       ----------+--------+-------------------------------+----------------
+       MOD-8841  | en-GB  | too many links + edits        | restore
+       MOD-8844  | bg-BG  | copied phone notes            | restore
+       MOD-8850  | es-ES  | route + prices + emoji        | restore
+       MOD-8856  | ja-JP  | pasted markdown table         | restore
+       MOD-8861  | ar-SA  | links + list + weird quotes   | restore
+
+09:54  Tiny snippets worth preserving
+       symbols=[]{}() <> // \\ :: == != <= >= ~~ ?? !! ## %%
+       money=€7.00 | €12.00 | ¥1800 | R$45,00
+       emoji=☕🎲🚆📍🧾✅😅😮‍💨
+       confusables=A Α А | O Ο О | C С
+       accent_demo=e + ́ => é ; résumé / resume
+
+10:01  Appeal text with multilingual comments inline
+       "This wasn't a promo post.
+        Това не беше реклама.
+        No era publicidad.
+        Ce n'était pas du spam.
+        これは宣伝ではありません。
+        لم يكن هذا إعلاناً."
+
+10:07  Draft note from moderator
+       "If a post contains:
+          - times
+          - prices
+          - a tiny table
+          - three links
+          - mobile-style punctuation
+        ...that might mean it's a real event announcement, not a bot."
+
+10:12  Pasted markdown block from an appeal
+       ```md
+       ## meetup redo because the first post vanished
+       - sunday
+       - 11:30
+       - café prisma / west exit
+       - maybe board games, maybe just coffee and complaining
+       - costs: €7-12
+       - train: RE 204 / local 17B
+       - RSVP with "yes / maybe / running late / lost again"
+       ```
+
+10:17  Pasted JSON block from internal tooling
+       {
+         "case": "MOD-8856",
+         "locale_mix": ["ja-JP", "en-GB"],
+         "reason": "table + bullets + two links + emoji",
+         "human_verdict": "restore",
+         "note": "real person, messy phone export, harmless"
+       }
+
+10:23  Pasted SQL block somebody dropped into chat because of course they did
+       SELECT case_id, locale, verdict
+       FROM moderation_cases
+       WHERE created_at >= '2026-08-10T09:00:00Z'
+         AND reason_guess IN ('too many links', 'phone note paste', 'table + bullets + emoji')
+       ORDER BY created_at;
+
+10:29  Fragments from actual user posts
+       - "table below because my brain is soup today"
+       - "prices maybe changed, pls don't yell if the pastry is now €8 instead of €7"
+       - "route from station: left, right, tiny stairs, glass door, maybe ask for Nora"
+       - "I pasted from email and Notes, sorry if the spaces look haunted"
+       - "👋 if anyone arrives late, send just a dot or a train emoji"
+
+10:34  Multilingual footer fragments from restored posts
+       EN: "thanks for checking manually"
+       BG: "мерси, че видяхте, че не е спам"
+       ES: "gracias por no borrar también los acentos 😅"
+       FR: "merci d'avoir laissé les liens et le tableau"
+       DE: "danke fürs Nicht-Glätten"
+       PT: "obrigado por manter o texto como ele era"
+       JA: "そのまま見てくれて助かりました"
+       AR: "شكراً لأنكم أبقيتم النص كما هو"
+
+10:41  Another harmless but noisy post example
+       "Night photo walk — maybe
+        start: 19:10 @ old fountain
+        bring: camera / phone / patience / umbrella?
+        path-ish:
+          station → bridge → alley → old market → tea place
+        costs:
+          tea €3.80
+          tram €1.60
+          regret variable
+        links:
+          https://community.example.test/events/photo-walk
+          https://maps.example.test/?q=old+fountain+west
+        mood:
+          📷🌙☕🌧️"
+
+10:48  Whiteboard logic, retyped with shaky hands
+       ┌─────────────────────┬────────────────────────────────────┐
+       │ likely bot          │ repetitive, flat, oddly generic   │
+       │ likely person       │ specific, messy, over-detailed    │
+       │ likely false alarm  │ tables + times + links + emojis   │
+       │ likely useful test  │ multilingual, structured, honest  │
+       └─────────────────────┴────────────────────────────────────┘
+
+10:55  Paths / links / exports
+       /srv/community/moderation/current/appeals-august.csv
+       /var/log/community/mod/queue-2026-08-10.log
+       C:\community\captures\appeals\boardgames sunday final.png
+       \\community-share\exports\appeals\august\post-8841.txt
+       https://community.example.test/help/post-hidden-by-filter
+       https://status.example.test/moderation/false-positives
+
+11:03  Final human note before lunch
+       Real user content is often:
+         half announcement,
+         half schedule,
+         half apology,
+         half formatting accident.
+       Yes, that's four halves.  That's why the test fixtures should be noisy.
+
+11:09  Closing lines
+       recommendation=keep five big samples that look like overstuffed real posts
+       trust_signal=high when specifics survive
+       cleanup_level=low on purpose
+       emoji_tail=☕🎲🚆📍🧾✅😅🌧️📷
+

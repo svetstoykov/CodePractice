@@ -1,0 +1,117 @@
+=== terminal mashup / copied notes / preserved raw content ===
+export_id      : exp_01JVB4F7JJ7F4PC7VP1M8W7R42
+session        : review-pane-05
+captured_at    : 2026-05-16 11:33:07 UTC
+operator       : "sofia + hiro + omar"
+machine        : mac-mini-build-02
+cwd            : /Users/sofia/work/tokenizer/replays/2026-05-16
+url            : https://diag.example.net/session/review-pane-05?tab=raw&preserve=1
+status         : partial-success
+intent         : keep the chaos; do not "tidy" this export
+
+--- shell block A --------------------------------------------------------------
+$ pwd
+/Users/sofia/work/tokenizer/replays/2026-05-16
+
+$ ls -lah "./Artifacts/Weird Bundle"
+total 384
+drwxr-xr-x   9 sofia  staff   288B May 16 11:27 .
+drwxr-xr-x  14 sofia  staff   448B May 16 11:32 ..
+-rw-r--r--   1 sofia  staff    12K May 16 11:21 00-summary.md
+-rw-r--r--   1 sofia  staff   8.1K May 16 11:21 01-tail.log
+-rw-r--r--   1 sofia  staff   3.4K May 16 11:22 02-ui-capture.txt
+-rw-r--r--   1 sofia  staff   5.6K May 16 11:23 03-snippets.ndjson
+-rw-r--r--   1 sofia  staff   1.8K May 16 11:25 04-hashes.tsv
+-rw-r--r--   1 sofia  staff   146B May 16 11:26 note from omar.txt
+
+$ shasum -a 256 "./Artifacts/Weird Bundle/"*
+31e949efc5c36f6b4b92af0d3773cb4fcab2cf557ab3c612d6a3a7f4eb55df11  ./Artifacts/Weird Bundle/00-summary.md
+25fbf08714f6ddb5be9d834af783abce108af2fbc050a545df2eab613dfba34e  ./Artifacts/Weird Bundle/01-tail.log
+792f4f43d4941da5d517eb4cced8e82137f31fd546c39a6bf97d6d4fb0d090a4  ./Artifacts/Weird Bundle/02-ui-capture.txt
+7444fb5b951d592305918387596e63e5603b737a38ccf4d5660c4cf45d9ac552  ./Artifacts/Weird Bundle/03-snippets.ndjson
+36d918f3f907c389cad7163b6a2d3cd4bc0a6aacd8f9066958f2b07d91ed0482  ./Artifacts/Weird Bundle/04-hashes.tsv
+
+--- shell block B --------------------------------------------------------------
+$ printf '%s\n' "owner	status	comment	path"
+owner	status	comment	path
+$ printf '%s\n' "ana	done	looks stable now	/srv/archive/Δaily/2026/05/16/summary.md"
+ana	done	looks stable now	/srv/archive/Δaily/2026/05/16/summary.md
+$ printf '%s\n' "li	hold	BOM still present	C:\relay\Exports\2026-05-16\客户\queue review.txt"
+li	hold	BOM still present	C:\relay\Exports\2026-05-16\客户\queue review.txt
+$ printf '%s\n' "omar	done	النتيجة سليمة لكن العنوان مكرر	/srv/archive/ar/final.txt"
+omar	done	النتيجة سليمة لكن العنوان مكرر	/srv/archive/ar/final.txt
+$ printf '%s\n' "hiro	investigating	見出しと表が重なった	/Users/hiro/Desktop/exports/検証.txt"
+hiro	investigating	見出しと表が重なった	/Users/hiro/Desktop/exports/検証.txt
+$ printf '%s\n' "sofia	done	Проверено, но пазете whitespace-а	\\nas-eu-02\exports\bg\2026\05\16\review.tsv"
+sofia	done	Проверено, но пазете whitespace-а	\\nas-eu-02\exports\bg\2026\05\16\review.tsv
+
+--- copied diagnostics ---------------------------------------------------------
+line 001 | badge          = Healthy-ish ✅
+line 002 | graph_title    = NØRTH\WEST / queue drift
+line 003 | local_title    = Résumé / Сводка / ملخص / 概要
+line 004 | weird_pair     = é / é
+line 005 | confusables    = A Α А | O Ο О | B Β В
+line 006 | paths          = /srv/archive/Δaily/2026/05/16/summary.md :: C:\relay\Exports\2026-05-16\客户\queue review.txt
+line 007 | urls           = https://grafana.example.net/d/lag-77/queue-lag?var-pane=retry&var-env=prod-eu
+line 008 | urls           = https://storage.example.net/raw/2026/05/16/03-snippets.ndjson?download=1
+line 009 | ticket         = https://tracker.example.net/browse/INC-7742
+line 010 | regex          = ^(?<team>[a-z-]+)::(?<lane>[0-9]+)/(?<kind>Δaily|daily)/(?<file>.+)$
+line 011 | raw escapes    = title="Bonjour\\r\\nqueue" footer="done-ish 😬"
+line 012 | raw yaml       = window: [11:21, 11:22, 11:23]   flags: [keep-tabs, no-normalize]
+line 013 | raw json       = {"id":"evt_77","emoji":"☕📦🧪➡️✅","path":"/srv/archive/Δaily/2026/05/16/summary.md"}
+line 014 | raw csv        = id,name,score\n7,"Léo",98.4\n8,"Ivy",88.1
+line 015 | rtl            = خلّي المسافات كما هي، لا تنظفها الآن.
+line 016 | bg             = Пусни повторна проверка след обяд, но не махай табовете.
+line 017 | es             = mañana hacemos otro replay; ahora está casi bien.
+line 018 | ja             = 表の下に余白が多いけど、内容そのものは正しい。
+line 019 | hi             = हेडर दो बार आया, लेकिन डेटा पूरा है।
+line 020 | emoji          = 👨‍👩‍👧‍👦 ☕🧾🧪➡️✅ 🔁
+
+--- note from omar.txt ---------------------------------------------------------
+The Arabic export is correct enough for the customer, but please stop flattening the spacing.
+
+Literal paste below:
+
+    الملخص النهائي
+    ----------------
+    الحالة      : partial-success
+    عدد الملفات : 9
+    الملاحظة    : لا تنظف المسافات    بين الأعمدة
+
+--- note from hiro -------------------------------------------------------------
+I copied this directly from the diagnostics pane:
+
+    [11:25:14] status   : partial-success
+    [11:25:14] warning  : separator storm near ":: // \\ ###"
+    [11:25:15] preview  : "/srv/archive/Δaily/2026/05/16/summary.md"
+    [11:25:16] preview  : "C:\relay\Exports\2026-05-16\客户\queue review.txt"
+    [11:25:17] preview  : "見出しと表が重なった"
+    [11:25:19] preview  : "done-ish 😬"
+
+hiro says the alignment looked like this, with extra spaces on purpose:
+
+    name              bytes      hash-prefix        note
+    00-summary.md     84210      31e949efc5c3       markdown digest
+    01-tail.log       22190      25fbf08714f6       tail capture
+    02-ui-capture.txt 12107      792f4f43d494       tabs + emoji + weird title
+    03-snippets.ndjson18118      7444fb5b951d       multilingual payloads
+
+--- clipboard history ----------------------------------------------------------
+1. "Looks fixed 👍 but graph still lies."
+2. "Пак е бавно, ама поне е пълно."
+3. "cliente dice: sale raro, pero llega."
+4. "見出しと表が重なった"
+5. "النتيجة سليمة لكن العنوان مكرر"
+6. "Need the messy bundle, not the cleaned one."
+7. "owner\tstatus\temoji\tpath"
+8. "ana\tdone\t☕\t/srv/archive/Δaily/2026/05/16/summary.md"
+9. "li\thold\t🧪\tC:\relay\Exports\2026-05-16\客户\queue review.txt"
+10. "{\"kind\":\"digest\",\"title\":\"Résumé / Сводка / ملخص\",\"emoji\":\"☕📦🚨\"}"
+
+--- noisy footer ----------------------------------------------------------------
+preserved_line_endings = CRLF marker visible as \r\n ; LF marker visible as \n ; one field kept literal "\\n"
+raw_bytes_hint         = EF BB BF 23 20 70 61 73 74 65 64
+observed_symbols       = :: // \\ ### ~~ ~~ ¯\_(ツ)_/¯ ±≈≠∞
+status_icons           = ✅ ⚠️ ❌ 🔁 📦 🧾
+last_comment           = If this looks too tidy, it is wrong.
+=== end terminal mashup =========================================================

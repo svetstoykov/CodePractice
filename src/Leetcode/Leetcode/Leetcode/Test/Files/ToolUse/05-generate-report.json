@@ -1,0 +1,80 @@
+{
+  "kind": "weekly-integrity-report",
+  "inputs": {
+    "sources": [
+      {
+        "name": "metrics",
+        "uri": "s3://ops-eu-west-1/raw/metrics/2026-05/*.jsonl",
+        "format": "jsonl"
+      },
+      {
+        "name": "alerts",
+        "uri": "https://alerts.internal/api/v2/export?team=runtime&state=open",
+        "format": "json"
+      },
+      {
+        "name": "notes",
+        "uri": "file:///tmp/briefing/handwritten_mix.txt",
+        "format": "text"
+      },
+      {
+        "name": "search-results",
+        "uri": "memory://search/batch/7Q9-β-44",
+        "format": "json"
+      },
+      {
+        "name": "terminal-scrape",
+        "uri": "file:///srv/apps/ingest/current/logs/edge-07/parser.log.excerpt",
+        "format": "log"
+      }
+    ],
+    "dimensions": [
+      "service",
+      "region",
+      "severity",
+      "locale",
+      "build_sha",
+      "prompt_shape",
+      "newline_style"
+    ],
+    "locale_hints": ["en", "bg", "ja", "ar", "emoji-only", "mixed-script"],
+    "example_fragments": [
+      "route=/x/μ?flag=ß&ok=true",
+      "👨‍👩‍👧‍👦",
+      "e\\u0301",
+      "NØRTH\\\\WEST",
+      "¯\\\\_(ツ)_/¯"
+    ]
+  },
+  "output": {
+    "format": "md+json",
+    "sections": [
+      "summary",
+      "outliers",
+      "top-regressions",
+      "raw-snippets",
+      "locale-breakdown",
+      "token-estimate-drift",
+      "recommendations"
+    ],
+    "max_items": 24,
+    "decorate": true,
+    "include_tables": true,
+    "highlight": ["retry_retry", "↯", "Δelta", "family-emoji"]
+  },
+  "constraints": {
+    "budget_tokens": 3600,
+    "preserve": ["UTF-8", "zero-width joiners", "escaped-newlines", "box-drawing"],
+    "drop_if_empty": false,
+    "refuse_normalization": ["emoji", "accented-latin", "rtl-samples"]
+  },
+  "postprocess": {
+    "group_similar_warnings": true,
+    "attach_top_samples": 7,
+    "render_sidecar_json": true,
+    "emit_plaintext_footer": true
+  },
+  "request_id": "rep_2026_05_14__A9-ζ",
+  "requested_by": "ops-review-bot"
+}
+

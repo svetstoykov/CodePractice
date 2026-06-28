@@ -1,0 +1,152 @@
+{
+  "kind": "multilingual-filter-pack",
+  "pack_name": "search-and-report-filters-v10",
+  "description": "Assemble a reusable filter set for search, scraping, and report generation flows that need realistic multilingual noise without turning into gibberish.",
+  "channels": [
+    {
+      "name": "search",
+      "queries": [
+        "tokenizer drift Δ vs baseline",
+        "emoji ZWJ family 👨‍👩‍👧‍👦 token count",
+        "C# path escaping \\\\server\\share\\logs",
+        "decomposed e\\u0301 vs composed é tokenization",
+        "Arabic Cyrillic Japanese mixed prompt separators :: // =>",
+        "¿error al exportar reporte con espacios   dobles   y rutas?",
+        "مرحبا retry policy backoff_ms 240 720 2160",
+        "добро утро release body markdown table pipes"
+      ],
+      "filters": {
+        "languages": [
+          "en",
+          "bg",
+          "ja",
+          "ar",
+          "es",
+          "ru"
+        ],
+        "must_have_any": [
+          "retry",
+          "path",
+          "emoji",
+          "unicode",
+          "report"
+        ],
+        "exclude_if_contains": [
+          "lorem ipsum",
+          "test test test",
+          "asdfgh"
+        ]
+      }
+    },
+    {
+      "name": "report",
+      "queries": [
+        "weekly integrity report locale breakdown mixed-script",
+        "incident report preserve raw snippets and path samples",
+        "markdown table token overhead with fenced SQL block",
+        "operator memo do not normalize emoji or accents"
+      ],
+      "filters": {
+        "sections": [
+          "summary",
+          "outliers",
+          "locale-breakdown",
+          "raw-snippets",
+          "recommendations"
+        ],
+        "highlight": [
+          "↯",
+          "Δelta",
+          "family-emoji",
+          "NØRTH\\\\WEST"
+        ]
+      }
+    }
+  ],
+  "text_rules": {
+    "preserve_exact": [
+      "добро утро   |   bonjour   |   你好",
+      "الرجاء عدم تسوية المسافات   داخل   الأمثلة",
+      "e\\u0301 vs é",
+      "¯\\\\_(ツ)_/¯",
+      "👨‍👩‍👧‍👦"
+    ],
+    "replace": [
+      {
+        "pattern": "\\\\r\\\\n",
+        "replacement": "\\n",
+        "scope": "preview_only"
+      },
+      {
+        "pattern": "[ \\t]{6,}",
+        "replacement": "     ",
+        "scope": "ui_preview_only"
+      }
+    ],
+    "regex_sets": [
+      {
+        "name": "paths",
+        "patterns": [
+          "(?:[A-Za-z]:\\\\\\\\[^\\n\\r\\\"]+)",
+          "(?:/srv/[A-Za-z0-9_./ -]+)",
+          "(?:\\\\\\\\\\\\\\\\[A-Za-z0-9._-]+\\\\[A-Za-z0-9$._ -]+(?:\\\\[A-Za-z0-9$._ -]+)*)"
+        ]
+      },
+      {
+        "name": "mixed-script-alerts",
+        "patterns": [
+          "(?:добро утро|bonjour|你好|مرحبا)",
+          "(?:Δ|μ|ß|Ω|π)",
+          "(?:👨‍👩‍👧‍👦|🧪✨|🛰️🔎)"
+        ]
+      }
+    ]
+  },
+  "snippets": [
+    {
+      "label": "report-footer",
+      "content": "Languages seen: en, bg, ja, ar, es, ru\\nPreserve spacing. Preserve accents. Preserve emoji. ✅"
+    },
+    {
+      "label": "operator-note",
+      "content": "Do not flatten this:\\n\\n  path => /srv/exports/tool-use/2026-05-14/operator-preview/\\n  path => C:\\\\Users\\\\Public\\\\Desktop\\\\Tool Use\\\\Batch 10\\\\\\n  note => добро утро   |   bonjour   |   你好\\n"
+    },
+    {
+      "label": "scrape-selector-hint",
+      "content": "Prefer selectors in this order:\\n  1. [data-testid='result-card']\\n  2. .release-card\\n  3. text=/retry_retry|Δelta|NØRTH\\\\WEST/\\n"
+    }
+  ],
+  "routing": {
+    "default_output_dir": "/srv/exports/tool-use/2026-05-14/filter-pack-v10/",
+    "archive_dir": "D:\\\\Archives\\\\Tool Use\\\\Filter Pack V10\\\\",
+    "mirror_targets": [
+      "\\\\\\\\nas-02\\\\captures\\\\filter-packs\\\\v10\\\\",
+      "s3://analysis-eu-central-1/filter-packs/v10/"
+    ],
+    "manifest_url": "https://artifacts.example.net/tool-use/filter-packs/v10/manifest.json"
+  },
+  "retry_policy": {
+    "max_attempts": 4,
+    "backoff_ms": [
+      120,
+      480,
+      1440,
+      4320
+    ],
+    "jitter_ratio": 0.22,
+    "retry_on": [
+      "http_408",
+      "http_429",
+      "io_timeout",
+      "dns_soft_failure"
+    ]
+  },
+  "labels": {
+    "en": "Noisy but realistic tool-use filters",
+    "bg": "Шумни, но реалистични филтри за tool-use",
+    "ja": "ノイズはあるが現実的な tool-use フィルター",
+    "ar": "مرشحات tool-use واقعية لكنها مليئة بالتفاصيل",
+    "es": "Filtros de tool-use ruidosos pero plausibles"
+  },
+  "request_id": "filters_10_2026_05_14__🧩"
+}

@@ -1,0 +1,84 @@
+Conversation transcript
+=======================
+
+[1] role=system pinned=true
+text:
+You are TokenGuard, a repository-aware coding assistant. Preserve tool-call structure, keep file paths exact, and explain token costs without flattening tool payloads.
+
+[2] role=user pinned=false
+text:
+Inspect Leetcode/Test/Models/ContextMessage.cs and tell me whether token counting should include tool payloads. If you use tools, keep the tool traffic in the transcript because I want to test token counters.
+
+[3] role=assistant pinned=false
+text:
+I'll inspect the message model first, then I can answer with the exact fields that should contribute to the count.
+tool_use id=call_search_context_message name=search_code:
+{
+  "path": "Leetcode/Test/Models/ContextMessage.cs",
+  "query": "TokenCount|Segments|ToolResultContent|ToolUseContent",
+  "includeLineNumbers": true
+}
+
+[4] role=tool pinned=false
+tool_result id=call_search_context_message name=search_code:
+ContextMessage.cs:17-18 => Services may populate TokenCount internally so repeated preparation passes do not need to recount unchanged messages.
+ContextMessage.cs:44-58 => Segments must contain at least one ContentSegment and are defensively copied.
+ContextMessage.cs:122-145 => A single message can preserve tool-use instructions or tool results as ordered content segments.
+
+[5] role=assistant pinned=false
+text:
+The message shape already preserves structured segments, so I want to read the exact helper overloads before I answer.
+tool_use id=call_read_context_message name=read_file:
+{
+  "path": "Leetcode/Test/Models/ContextMessage.cs",
+  "startLine": 99,
+  "endLine": 159
+}
+
+[6] role=tool pinned=false
+tool_result id=call_read_context_message name=read_file:
+99.  /// Creates a ContextMessage containing a single TextContent segment.
+109. public static ContextMessage FromText(MessageRole role, string text)
+118. /// Creates a ContextMessage from a single existing ContentSegment.
+129. public static ContextMessage FromContent(MessageRole role, ContentSegment segment)
+141. /// Creates a ContextMessage from multiple existing ContentSegment values.
+151. public static ContextMessage FromContent(MessageRole role, ContentSegment[] blocks)
+158.             Segments = blocks,
+
+[7] role=user pinned=false
+text:
+Great. Build a realistic sample conversation with valid tool results, include a short Bulgarian note, and keep the payloads raw enough that I can compare them with a real tokenizer.
+
+[8] role=assistant pinned=false
+text:
+I can do that. I'll keep the JSON arguments and tool outputs verbatim enough to stress punctuation, paths, and multiline payloads.
+tool_use id=call_estimate_budget name=estimate_tokens:
+{
+  "messages": ["system", "user", "assistant+tool_use", "tool_result", "assistant"],
+  "includeToolPayloads": true,
+  "notes": "Compare heuristic counts with a real tokenizer."
+}
+
+[9] role=tool pinned=false
+tool_result id=call_estimate_budget name=estimate_tokens:
+{
+  "estimatedTokens": 324,
+  "unicodeHeavyTokens": 337,
+  "observations": [
+    "Tool-call JSON adds measurable overhead.",
+    "Multiline tool results are more expensive than short text turns.",
+    "Structured payloads should stay in the transcript if you want an apples-to-apples comparison."
+  ]
+}
+
+[10] role=assistant pinned=false
+text:
+Yes—tool payloads should be counted because they are preserved inside ContextMessage.Segments and both token counters explicitly account for ToolUseContent and ToolResultContent.
+
+Practical summary:
+1. Count the text segments.
+2. Count tool-call identifiers, tool names, and raw JSON arguments.
+3. Count tool-result payloads exactly as stored if you want realistic budget pressure.
+
+Българска бележка: ако махнеш tool payloads от стенограмата, ще получиш подвеждащо нисък token count.
+

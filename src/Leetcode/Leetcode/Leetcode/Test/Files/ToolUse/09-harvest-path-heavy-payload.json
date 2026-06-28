@@ -1,0 +1,144 @@
+{
+  "kind": "path-heavy-log-and-snippet-harvest",
+  "mission": "Sweep mixed operating-system paths, config snippets, and operator paste bins for later parsing while preserving layout.",
+  "targets": {
+    "roots": [
+      "/srv/apps/ingest/current/logs/",
+      "/srv/apps/ingest/current/logs/archive/2026-05-14/",
+      "/Users/Shared/Diagnostics/Release Δ/",
+      "D:\\\\Ops\\\\Archive\\\\μ-service\\\\",
+      "E:\\\\Captured Notes\\\\May 14\\\\",
+      "\\\\\\\\edge-fs-04\\\\runtime\\\\drops\\\\2026-05-14\\\\",
+      "\\\\\\\\nas-02\\\\captures\\\\mixed-script\\\\batch-09\\\\"
+    ],
+    "include_globs": [
+      "**/*.log",
+      "**/*.log.excerpt",
+      "**/*.json",
+      "**/*.jsonl",
+      "**/*.md",
+      "**/*.txt",
+      "**/*.trace"
+    ],
+    "exclude_globs": [
+      "**/obj/**",
+      "**/bin/**",
+      "**/*.bak",
+      "**/*.tmp",
+      "**/node_modules/**",
+      "**/screenshots/**"
+    ],
+    "symlink_policy": "follow_internal_only"
+  },
+  "collection": {
+    "max_files": 240,
+    "max_bytes_per_file": 786432,
+    "tail_lines_for_large_logs": 220,
+    "path_encoding": "verbatim",
+    "preserve_line_endings": true,
+    "whitespace_mode": "lossless",
+    "interesting_if_contains": [
+      "retry_retry",
+      "Δcpu",
+      "μ_wait",
+      "NØRTH\\\\WEST",
+      "👨‍👩‍👧‍👦",
+      "e\\u0301",
+      "é",
+      "مرحبا",
+      "добро утро"
+    ]
+  },
+  "extractors": [
+    {
+      "name": "regex-lines",
+      "pattern": "^(?<ts>\\d{4}-\\d{2}-\\d{2}T[^ ]+)\\s+(?<lvl>[A-Z]+)\\s+(?<msg>.*)$",
+      "apply_to": [
+        "*.log",
+        "*.log.excerpt",
+        "*.trace"
+      ]
+    },
+    {
+      "name": "json-embedded-string",
+      "pattern": "\"(payload|message|note|stack)\"\\s*:\\s*\"(?<content>(?:[^\"\\\\]|\\\\.)+)\"",
+      "apply_to": [
+        "*.json",
+        "*.jsonl"
+      ]
+    },
+    {
+      "name": "markdown-code-fence",
+      "pattern": "```(?<lang>[a-zA-Z0-9_-]*)\\n(?<code>[\\s\\S]*?)```",
+      "apply_to": [
+        "*.md",
+        "*.txt"
+      ]
+    }
+  ],
+  "snippets": {
+    "keep_top_matches_per_file": 8,
+    "surrounding_lines": 2,
+    "prefer_sections": [
+      "ERROR",
+      "WARN",
+      "path =",
+      "stack:",
+      "```json",
+      "```sql"
+    ],
+    "verbatim_examples": [
+      "path=\"/srv/apps/ingest/current/logs/edge-07/parser.log.excerpt\"",
+      "path=\"C:\\\\ops\\\\archive\\\\μ-service\\\\crash?.dmp\"",
+      "share=\"\\\\\\\\edge-fs-04\\\\runtime\\\\drops\\\\2026-05-14\\\\Δ77\\\\report draft.txt\"",
+      "memo=\"Please keep   the   spacing   exactly   like   this.\"",
+      "mixed=\"добро утро | bonjour | 你好 | مرحبا\""
+    ]
+  },
+  "browser_sidecar": {
+    "enabled": true,
+    "load_urls_from_files_matching": [
+      "**/*.md",
+      "**/*.json"
+    ],
+    "url_regex": "https?://[^\\s\\\")]+",
+    "headless": true,
+    "capture": [
+      "title",
+      "final_url",
+      "meta_description",
+      "first_pre_block"
+    ],
+    "timeout_ms": 12000
+  },
+  "retry": {
+    "filesystem": {
+      "max_attempts": 4,
+      "backoff_ms": [
+        100,
+        400,
+        1600,
+        3200
+      ]
+    },
+    "browser": {
+      "max_attempts": 3,
+      "backoff_ms": [
+        250,
+        1000,
+        3000
+      ]
+    }
+  },
+  "output": {
+    "manifest": "file:///srv/exports/tool-use/2026-05-14/path-harvest/manifest.json",
+    "snippets_dir": "file:///srv/exports/tool-use/2026-05-14/path-harvest/snippets/",
+    "index_markdown": "file:///srv/exports/tool-use/2026-05-14/path-harvest/index.md",
+    "include_hashes": [
+      "sha256",
+      "xxh3"
+    ]
+  },
+  "notes": "Important:\n  - keep UNC prefixes exactly as captured\n  - keep shell fragments like `scp ops@host:/var/log/app.log ./capture/`\n  - keep Windows paths with question marks if they already exist in pasted notes\n  - keep emoji breadcrumbs like 🧭➡️📦 when they appear in operator annotations\n",
+  "trace": "harvest_09_paths__ω5"
+}

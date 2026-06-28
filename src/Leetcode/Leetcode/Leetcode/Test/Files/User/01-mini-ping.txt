@@ -1,0 +1,11 @@
+hey — quick sanity ping before standup.
+route=/api/v1/ping?mode=tiny&lang=bg-BG
+latency_ms=17 | retries=0 | trace=mini-α7
+mood=mostly-ok 🤖☕
+notes:
+- saw one odd token: é vs é
+- Sofia weather tab said "clouds later, maybe"
+- teammate dropped: "ще го оправим след 10"
+symbols=[]{}() <> // \\ :: == != <= >=
+tiny payload={"ok":true,"tenant":"β","tags":["small","mixed","demo"]}
+

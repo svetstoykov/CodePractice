@@ -1,0 +1,217 @@
+{
+  "kind": "etl-pipeline-config",
+  "pipeline_name": "mixed-script-prompt-normalization-audit",
+  "revision": "2026.05.14-r3",
+  "owner": "data-ops",
+  "sources": [
+    {
+      "name": "chat-export",
+      "uri": "s3://analysis-eu-central-1/raw/chats/2026/05/14/*.jsonl.gz",
+      "format": "jsonl.gz",
+      "encoding": "utf-8",
+      "sample_locale_mix": [
+        "en",
+        "bg",
+        "ja",
+        "ar",
+        "ru",
+        "emoji-only"
+      ]
+    },
+    {
+      "name": "desktop-drop",
+      "uri": "file:///Users/shared/Imports/May/Tool Use/συλλογή 07/pasted_notes.ndjson",
+      "format": "ndjson",
+      "encoding": "utf-8",
+      "path_hints": [
+        "/Users/shared/Imports/May/Tool Use/συλλογή 07/",
+        "C:\\\\Users\\\\Public\\\\Desktop\\\\Tool Use\\\\Batch 07\\\\",
+        "\\\\\\\\fileserver-03\\\\etl\\\\incoming\\\\mixed-script\\\\"
+      ]
+    },
+    {
+      "name": "release-scrape",
+      "uri": "https://storage.example.net/exports/release-scrape/2026-05-14/export.json?source=tool-use",
+      "format": "json",
+      "encoding": "utf-8"
+    },
+    {
+      "name": "notes-fragments",
+      "uri": "memory://notes/session/07-bilingual-fragments",
+      "format": "text-bundle",
+      "encoding": "utf-8"
+    }
+  ],
+  "stages": [
+    {
+      "name": "ingest",
+      "mode": "append",
+      "parallelism": 4,
+      "preserve_order_for": [
+        "chat-export",
+        "notes-fragments"
+      ],
+      "sniff": {
+        "detect_bom": true,
+        "detect_mixed_newlines": true,
+        "detect_zero_width": true
+      }
+    },
+    {
+      "name": "parse",
+      "transforms": [
+        {
+          "op": "json_decode",
+          "fields": [
+            "payload",
+            "message",
+            "tool_input"
+          ],
+          "on_error": "emit_dead_letter"
+        },
+        {
+          "op": "regex_extract",
+          "pattern": "^(?<ts>[^ ]+)\\s+(?<lvl>[A-Z]+)\\s+(?<rest>.*)$",
+          "source_field": "raw_line",
+          "target_field": "log_parse"
+        },
+        {
+          "op": "split_locale_hints",
+          "source_field": "locale_hint",
+          "delimiter_pattern": "\\s*[|,;/]+\\s*",
+          "target_field": "locale_hint_tokens"
+        }
+      ]
+    },
+    {
+      "name": "normalize",
+      "transforms": [
+        {
+          "op": "unicode_compare",
+          "field": "message",
+          "variants": [
+            "nfc",
+            "nfd",
+            "original"
+          ],
+          "store_diff": true
+        },
+        {
+          "op": "trim_outside_preserved_ranges",
+          "preserve_ranges_from": [
+            "markdown_fences",
+            "quoted_paths",
+            "rtl_spans"
+          ]
+        },
+        {
+          "op": "collapse_blank_lines",
+          "enabled": false
+        }
+      ]
+    },
+    {
+      "name": "enrich",
+      "transforms": [
+        {
+          "op": "lang_detect",
+          "field": "message",
+          "top_k": 4
+        },
+        {
+          "op": "path_classifier",
+          "field": "message",
+          "schemes": [
+            "file",
+            "https",
+            "s3",
+            "ssh",
+            "memory"
+          ]
+        },
+        {
+          "op": "tag_if_contains",
+          "field": "message",
+          "needles": [
+            "retry_retry",
+            "Δelta",
+            "👨‍👩‍👧‍👦",
+            "¯\\\\_(ツ)_/¯",
+            "C:\\\\ops\\\\archive\\\\μ-service\\\\crash?.dmp"
+          ],
+          "target_field": "special_markers"
+        }
+      ]
+    },
+    {
+      "name": "export",
+      "mode": "partitioned",
+      "partition_by": [
+        "detected_language.primary",
+        "path_classifier.primary_scheme",
+        "has_unicode_diff"
+      ],
+      "targets": [
+        {
+          "format": "parquet",
+          "uri": "s3://analysis-eu-central-1/curated/tool-use/2026-05-14/",
+          "compression": "zstd"
+        },
+        {
+          "format": "json",
+          "uri": "file:///srv/exports/tool-use/2026-05-14/noisy-samples/",
+          "compression": "none"
+        },
+        {
+          "format": "md",
+          "uri": "file:///srv/exports/tool-use/2026-05-14/operator-preview/",
+          "compression": "none"
+        }
+      ]
+    }
+  ],
+  "field_map": {
+    "raw_line": "event.raw",
+    "message": "event.message",
+    "tool_input": "event.tool.input",
+    "request_id": "meta.request_id",
+    "trace": "meta.trace",
+    "source_uri": "meta.source_uri"
+  },
+  "quality_gates": {
+    "max_dead_letter_rate": 0.015,
+    "max_unknown_language_rate": 0.08,
+    "require_non_empty_fields": [
+      "message",
+      "request_id",
+      "source_uri"
+    ],
+    "warn_if_contains": [
+      "token",
+      "secret",
+      "api_key",
+      "session_cookie"
+    ],
+    "sample_review_notes": "Keep at least 12 intentionally noisy records for manual review.\n\nExamples to preserve:\n  1. \"добро утро   |   bonjour   |   你好\"\n  2. \"مرحبا\\n\\npath => /srv/apps/current/logs\"\n  3. \"note: e\\u0301 versus é should stay visible\"\n  4. \"emoji chain 🧪✨📦 should not be de-duplicated\"\n"
+  },
+  "sql_preview": "SELECT detected_language_primary,\n       COUNT(*) AS rows,\n       SUM(CASE WHEN has_unicode_diff THEN 1 ELSE 0 END) AS unicode_diff_rows,\n       MAX(source_uri) AS latest_source\nFROM curated_tool_use_samples\nWHERE event_date = DATE '2026-05-14'\nGROUP BY detected_language_primary\nORDER BY rows DESC;\n",
+  "dead_letter": {
+    "uri": "file:///srv/exports/tool-use/2026-05-14/dead-letter/",
+    "include_raw_record": true,
+    "include_stack": true,
+    "retention_days": 14
+  },
+  "notifications": {
+    "slack_channels": [
+      "#etl-watch",
+      "#unicode-lab",
+      "#release-ops"
+    ],
+    "email": [
+      "data-ops@example.net",
+      "unicode-review@example.net"
+    ],
+    "summary_emoji": "🧵📦🧪"
+  },
+  "request_id": "etl_07_2026_05_14__λ3"
+}

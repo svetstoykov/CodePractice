@@ -1,0 +1,38 @@
+{
+  "repository": "svetstoykov/CodePractice",
+  "ref": "refs/tags/v2026.05.14-hotfix",
+  "include": {
+    "notes": true,
+    "artifacts": [
+      "linux-x64",
+      "osx-arm64",
+      "symbols",
+      "sbom",
+      "portable-logs"
+    ],
+    "checksums": true,
+    "release_body_format": "md"
+  },
+  "filters": {
+    "path_globs": [
+      "src/**",
+      "tests/**",
+      "docs/release/*.md",
+      "benchmarks/tokenizers/**"
+    ],
+    "exclude": [
+      "**/obj/**",
+      "**/bin/**",
+      "**/*.cache",
+      "**/screenshots/**"
+    ]
+  },
+  "hints": {
+    "locale_priority": ["en", "bg", "ja"],
+    "preserve_unicode": true,
+    "keep_mixed_newlines": true
+  },
+  "request_id": "rel_2026_05_14__β7",
+  "requested_by": "night-ops"
+}
+
